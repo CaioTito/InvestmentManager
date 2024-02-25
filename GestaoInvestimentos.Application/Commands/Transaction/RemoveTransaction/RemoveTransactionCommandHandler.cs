@@ -4,7 +4,7 @@ using MediatR;
 
 namespace GestaoInvestimentos.Application.Commands
 {
-    public class CreateTransactionCommandHandler : IRequestHandler<CreateTransactionCommand, Guid>
+    public class RemoveTransactionCommandHandler : IRequestHandler<RemoveTransactionCommand, Guid>
     {
         private readonly ITransactionRepository _transactionRepository;
         private readonly IUsersRepository _userRepository;
@@ -12,7 +12,7 @@ namespace GestaoInvestimentos.Application.Commands
         private readonly IUserProductsRepository _userProductsRepository;
         private readonly IOperationTypeRepository _operationTypeRepository;
 
-        public CreateTransactionCommandHandler(ITransactionRepository transactionRepository, IUsersRepository userRepository, IProductsRepository productRepository, IUserProductsRepository userProductsRepository, IOperationTypeRepository operationTypeRepository)
+        public RemoveTransactionCommandHandler(ITransactionRepository transactionRepository, IUsersRepository userRepository, IProductsRepository productRepository, IUserProductsRepository userProductsRepository, IOperationTypeRepository operationTypeRepository)
         {
             _transactionRepository = transactionRepository;
             _userRepository = userRepository;
@@ -21,7 +21,7 @@ namespace GestaoInvestimentos.Application.Commands
             _operationTypeRepository = operationTypeRepository;
         }
 
-        public async Task<Guid> Handle(CreateTransactionCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(RemoveTransactionCommand request, CancellationToken cancellationToken)
         {
             try
             {
@@ -29,33 +29,39 @@ namespace GestaoInvestimentos.Application.Commands
                 var product = await _productRepository.GetProductByIdAsync(request.ProductId);
                 var operationType = await _operationTypeRepository.GetOperationByIdAsync(request.OperationId);
 
-                if (user.Balance < (request.Quantity * product.MinimumInvestment))
-                    throw new Exception("O seu saldo é insuficiente para essa quantidade");
-                user.UpdateBalance((request.Quantity * product.MinimumInvestment));
-
                 var transaction = new Transactions(request.Quantity, request.OperationId, request.ProductId, request.UserId, operationType, product, user);
                 var userProduct = new UserProducts(request.Quantity, request.ProductId, request.UserId, user, product);
 
                 var userProductRelation = await _userProductsRepository.GetUserProducts(request.UserId, request.ProductId);
-                if(userProductRelation != null)
+
+                if (userProductRelation != null)
                 {
-                    userProductRelation.UpdateQuantityBuy(request.Quantity);
+                    if (userProductRelation.Quantity < 0)
+                        throw new Exception("Você está tentando vender uma quantidade maior do que você tem.");
+
+                    userProductRelation.UpdateQuantitySell(request.Quantity);
+                    if (userProductRelation.Quantity == 0)
+                        userProductRelation.Delete();
                     _userProductsRepository.Update(userProductRelation);
 
                     var transactionRelation = await _transactionRepository.GetTransaction(request.UserId, request.ProductId, request.OperationId);
+
                     if (transactionRelation != null)
                     {
-                        transactionRelation.UpdateQuantityBuy(request.Quantity);
+                        if (transactionRelation.Quantity < 0)
+                            throw new Exception("Você está tentando vender uma quantidade maior do que você tem.");
+
+                        transactionRelation.UpdateQuantitySell(request.Quantity);
+                        if (transactionRelation.Quantity == 0)
+                            transactionRelation.Delete();
                         _transactionRepository.Update(transactionRelation);
 
                         return transaction.Id;
                     }
 
-                    return transaction.Id;
                 }
 
                 await _transactionRepository.AddAsync(transaction);
-                await _userProductsRepository.AddAsync(userProduct);
 
                 return transaction.Id;
             }
@@ -63,7 +69,6 @@ namespace GestaoInvestimentos.Application.Commands
             {
                 throw;
             }
-            
         }
     }
 }

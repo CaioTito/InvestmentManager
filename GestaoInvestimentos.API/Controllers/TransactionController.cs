@@ -47,5 +47,22 @@ namespace GestaoInvestimentos.API.Controllers
             }
 
         }
+
+        [HttpPost("sell")]
+        [Authorize(Roles = "Customer")]
+        public async Task<ActionResult> SellInvestment([FromBody] RemoveTransactionCommand command)
+        {
+            try
+            {
+                var id = await _mediator.Send(command);
+
+                return CreatedAtAction(nameof(GetTransactionByIdQuery), new { id }, command);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
     }
 }

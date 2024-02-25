@@ -22,9 +22,15 @@ namespace GestaoInvestimentos.Domain.Entities
         public Users User { get; private set; } = new();
         public Products Product { get; private set; } = new();
 
-        public void UpdateQuantity(int quantity)
+        public void UpdateQuantityBuy(int quantity)
         {
             Quantity += quantity;
+            UpdatedAt = DateTime.Now;
+        }
+
+        public void UpdateQuantitySell(int quantity)
+        {
+            Quantity -= quantity;
             UpdatedAt = DateTime.Now;
         }
     }
