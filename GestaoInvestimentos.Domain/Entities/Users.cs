@@ -24,11 +24,18 @@
         public decimal Balance { get; private set; }
         public List<Products> Products { get; private set; } = [];
         public List<Transactions> Transactions { get; private set; } = [];
+        public List<UserProducts> UserProducts { get; private set; } = [];
 
         public void Update(string email, int role)
         {
             Email = email;
             Role = role;
+            UpdatedAt = DateTime.Now;
+        }
+
+        public void UpdateBalance(decimal costs)
+        {
+            Balance -= costs;
             UpdatedAt = DateTime.Now;
         }
     }

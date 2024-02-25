@@ -2,8 +2,12 @@
 {
     public class Transactions : BaseEntity
     {
-        public Transactions()
+        public Transactions(Guid operationId, Guid productId, Guid userId)
         {
+            OperationId = operationId;
+            ProductId = productId;
+            UserId = userId;
+
             OperationType = new();
             Product = new();
             User = new();
