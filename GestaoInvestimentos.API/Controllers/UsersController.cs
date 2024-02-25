@@ -49,7 +49,7 @@ namespace GestaoInvestimentos.API.Controllers
             return NoContent();
         }
 
-        [HttpPut("login")]
+        [HttpPost("login")]
         [AllowAnonymous]
 
         public async Task<IActionResult> Login([FromBody] LoginUserCommand login)
