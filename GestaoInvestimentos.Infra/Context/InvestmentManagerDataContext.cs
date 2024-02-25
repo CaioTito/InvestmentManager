@@ -15,6 +15,7 @@ namespace GestaoInvestimentos.Infra.Context
         public DbSet<Products> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<OperationType> OperationTypes { get; set; }
+        public DbSet<Transactions> Transactions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

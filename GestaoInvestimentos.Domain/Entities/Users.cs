@@ -16,13 +16,14 @@
             Password = password;
         }
 
+        public string Name { get; set; } = string.Empty;
         public string Cpf { get; private set; } = string.Empty;
         public string Password { get; private set; } = string.Empty;
         public string Email { get; private set; } = string.Empty;
         public int Role { get; private set; }
         public decimal Balance { get; private set; }
         public List<Products> Products { get; private set; } = [];
-        public List<OperationType> OperationTypes { get; private set; } = [];
+        public List<Transactions> Transactions { get; private set; } = [];
 
         public void Update(string email, int role)
         {

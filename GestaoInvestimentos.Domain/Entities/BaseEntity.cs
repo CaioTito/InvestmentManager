@@ -12,13 +12,13 @@ namespace GestaoInvestimentos.Domain.Entities
         }
 
         public Guid Id { get; private set; }
-        public string Name { get; set; } = string.Empty;
         public DateTime CreatedAt { get; private set; }
         public DateTime UpdatedAt { get; set; }
-        public DateTime DeletedAt { get; private set; }
+        public DateTime? DeletedAt { get; private set; }
 
         public void Delete()
         {
+            UpdatedAt = DateTime.Now;
             DeletedAt = DateTime.Now;
         }
     }

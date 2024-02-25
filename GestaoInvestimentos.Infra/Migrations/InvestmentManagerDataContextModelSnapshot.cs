@@ -31,7 +31,7 @@ namespace GestaoInvestimentos.Infra.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DeletedAt")
+                    b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
@@ -55,7 +55,7 @@ namespace GestaoInvestimentos.Infra.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DeletedAt")
+                    b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
@@ -85,7 +85,7 @@ namespace GestaoInvestimentos.Infra.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DeletedAt")
+                    b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("ExpirationDate")
@@ -112,6 +112,41 @@ namespace GestaoInvestimentos.Infra.Migrations
                     b.ToTable("Products");
                 });
 
+            modelBuilder.Entity("GestaoInvestimentos.Domain.Entities.Transactions", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("OperationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OperationId");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Transactions");
+                });
+
             modelBuilder.Entity("GestaoInvestimentos.Domain.Entities.Users", b =>
                 {
                     b.Property<Guid>("Id")
@@ -128,7 +163,7 @@ namespace GestaoInvestimentos.Infra.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DeletedAt")
+                    b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
@@ -154,21 +189,6 @@ namespace GestaoInvestimentos.Infra.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("OperationTypeProducts", b =>
-                {
-                    b.Property<Guid>("OperationTypesId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ProductsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("OperationTypesId", "ProductsId");
-
-                    b.HasIndex("ProductsId");
-
-                    b.ToTable("OperationTypeProducts");
-                });
-
             modelBuilder.Entity("UserProducts", b =>
                 {
                     b.Property<Guid>("ProductId")
@@ -184,26 +204,6 @@ namespace GestaoInvestimentos.Infra.Migrations
                     b.ToTable("UserProducts");
                 });
 
-            modelBuilder.Entity("UserTransactions", b =>
-                {
-                    b.Property<Guid>("OperationId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("OperationId", "ProductId");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserTransactions");
-                });
-
             modelBuilder.Entity("GestaoInvestimentos.Domain.Entities.Products", b =>
                 {
                     b.HasOne("GestaoInvestimentos.Domain.Entities.Category", "Category")
@@ -216,19 +216,34 @@ namespace GestaoInvestimentos.Infra.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("OperationTypeProducts", b =>
+            modelBuilder.Entity("GestaoInvestimentos.Domain.Entities.Transactions", b =>
                 {
-                    b.HasOne("GestaoInvestimentos.Domain.Entities.OperationType", null)
-                        .WithMany()
-                        .HasForeignKey("OperationTypesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("GestaoInvestimentos.Domain.Entities.OperationType", "OperationType")
+                        .WithMany("Transactions")
+                        .HasForeignKey("OperationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("FK_Transactions_OperationId");
 
-                    b.HasOne("GestaoInvestimentos.Domain.Entities.Products", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("GestaoInvestimentos.Domain.Entities.Products", "Product")
+                        .WithMany("Transactions")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("FK_Transactions_ProductId");
+
+                    b.HasOne("GestaoInvestimentos.Domain.Entities.Users", "User")
+                        .WithMany("Transactions")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("FK_Transactions_UserId");
+
+                    b.Navigation("OperationType");
+
+                    b.Navigation("Product");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("UserProducts", b =>
@@ -248,32 +263,24 @@ namespace GestaoInvestimentos.Infra.Migrations
                         .HasConstraintName("FK_UserProducts_UserId");
                 });
 
-            modelBuilder.Entity("UserTransactions", b =>
-                {
-                    b.HasOne("GestaoInvestimentos.Domain.Entities.Users", null)
-                        .WithMany()
-                        .HasForeignKey("OperationId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired()
-                        .HasConstraintName("FK_UserTransactions_OperationId");
-
-                    b.HasOne("GestaoInvestimentos.Domain.Entities.OperationType", null)
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired()
-                        .HasConstraintName("FK_UserTransactions_ProductId");
-
-                    b.HasOne("GestaoInvestimentos.Domain.Entities.Products", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .HasConstraintName("FK_UserTransactions_UserId");
-                });
-
             modelBuilder.Entity("GestaoInvestimentos.Domain.Entities.Category", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("GestaoInvestimentos.Domain.Entities.OperationType", b =>
+                {
+                    b.Navigation("Transactions");
+                });
+
+            modelBuilder.Entity("GestaoInvestimentos.Domain.Entities.Products", b =>
+                {
+                    b.Navigation("Transactions");
+                });
+
+            modelBuilder.Entity("GestaoInvestimentos.Domain.Entities.Users", b =>
+                {
+                    b.Navigation("Transactions");
                 });
 #pragma warning restore 612, 618
         }

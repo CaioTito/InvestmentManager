@@ -8,7 +8,7 @@ namespace GestaoInvestimentos.Domain.Entities
         {
             Category = new();
             Users = [];
-            OperationTypes = [];
+            Transactions = [];
         }
         public Products(string name, Category category, string liquidity, decimal annualRate, decimal minimumInvestment, DateTime expirationDate)
         {
@@ -20,16 +20,17 @@ namespace GestaoInvestimentos.Domain.Entities
             ExpirationDate = expirationDate;
 
             Users = [];
-            OperationTypes = [];
+            Transactions = [];
         }
 
+        public string Name { get; set; } = string.Empty;
         public Category Category { get; private set; }
         public string Liquidity { get; private set; } = string.Empty;
         public decimal AnnualRate { get; private set; }
         public decimal MinimumInvestment { get; private set; }
         public DateTime ExpirationDate { get; private set; }
         public List<Users> Users { get; private set; }
-        public List<OperationType> OperationTypes { get; private set; }
+        public List<Transactions> Transactions { get; private set; }
 
         public void Update(string name, Category category, string liquidity, decimal annualRate, decimal minimumInvestment, DateTime expirationDate)
         {

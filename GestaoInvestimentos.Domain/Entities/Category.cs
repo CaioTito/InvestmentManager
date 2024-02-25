@@ -4,15 +4,16 @@
     {
         public Category()
         {
-            
+            Products = [];
         }
         public Category(string name)
         {
             Name = name;
 
-            Products = new List<Products>();
+            Products = [];
         }
 
+        public string Name { get; set; } = string.Empty;
         public List<Products> Products { get; private set; }
     }
 }

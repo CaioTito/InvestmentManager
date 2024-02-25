@@ -4,18 +4,16 @@
     {
         public OperationType()
         {
-            Users = [];
-            Products = [];
+            Transactions = [];
         }
         public OperationType(string name)
         {
             Name = name;
 
-            Users = [];
-            Products = [];
+            Transactions = [];
         }
 
-        public List<Users> Users { get; private set; }
-        public List<Products> Products { get; private set; }
+        public string Name { get; set; } = string.Empty;
+        public List<Transactions> Transactions { get; private set; }
     }
 }
