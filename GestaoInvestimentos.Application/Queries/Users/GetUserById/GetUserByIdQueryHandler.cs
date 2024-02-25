@@ -4,16 +4,16 @@ using MediatR;
 
 namespace GestaoInvestimentos.Application.Queries
 {
-    public class GetUserByIdCommandHandler : IRequestHandler<GetUserByIdCommand, UserViewModel>
+    public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserViewModel>
     {
         private readonly IUsersRepository _repository;
 
-        public GetUserByIdCommandHandler(IUsersRepository repository)
+        public GetUserByIdQueryHandler(IUsersRepository repository)
         {
             _repository = repository;
         }
 
-        public async Task<UserViewModel> Handle(GetUserByIdCommand request, CancellationToken cancellationToken)
+        public async Task<UserViewModel> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
         {
             var user = await _repository.GetUserByIdAsync(request.Id);
 

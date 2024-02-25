@@ -3,9 +3,9 @@ using MediatR;
 
 namespace GestaoInvestimentos.Application.Queries
 {
-    public class GetUserByIdCommand : IRequest<UserViewModel>
+    public class GetUserByIdQuery : IRequest<UserViewModel>
     {
-        public GetUserByIdCommand(Guid id)
+        public GetUserByIdQuery(Guid id)
         {
             Id = id;
         }

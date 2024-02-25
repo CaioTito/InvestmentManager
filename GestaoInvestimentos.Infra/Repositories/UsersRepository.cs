@@ -25,7 +25,7 @@ namespace GestaoInvestimentos.Infra.Repositories
             if (user == null)
                 return null;
 
-            if (user.DeletedAt != DateTime.MinValue)
+            if (user.DeletedAt != null)
                 return null;
 
             return user;

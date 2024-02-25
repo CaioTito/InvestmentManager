@@ -25,7 +25,7 @@ namespace GestaoInvestimentos.Infra.Repositories
             if (product == null)
                 return null;
 
-            if (product.DeletedAt != DateTime.MinValue)
+            if (product.DeletedAt != null)
                 return null;
 
             return product;

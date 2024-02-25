@@ -3,9 +3,9 @@ using MediatR;
 
 namespace GestaoInvestimentos.Application.Queries
 {
-    public class GetProductByIdCommand : IRequest<ProductViewModel>
+    public class GetProductByIdQuery : IRequest<ProductViewModel>
     {
-        public GetProductByIdCommand(Guid id)
+        public GetProductByIdQuery(Guid id)
         {
             Id = id;
         }

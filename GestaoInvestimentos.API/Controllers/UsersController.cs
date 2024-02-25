@@ -21,7 +21,7 @@ namespace GestaoInvestimentos.API.Controllers
         [Authorize(Roles = "Administrator")]
         public async Task<ActionResult> GetUserById(Guid id)
         {
-            var getUserByIdQuery = new GetUserByIdCommand(id);
+            var getUserByIdQuery = new GetUserByIdQuery(id);
 
             var user = await _mediator.Send(getUserByIdQuery);
 

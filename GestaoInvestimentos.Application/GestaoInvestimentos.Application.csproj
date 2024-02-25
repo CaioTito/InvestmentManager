@@ -15,9 +15,4 @@
     <ProjectReference Include="..\GestaoInvestimentos.Domain\GestaoInvestimentos.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Commands\Category\" />
-    <Folder Include="Queries\Category\" />
-  </ItemGroup>
-
 </Project>

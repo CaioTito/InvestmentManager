@@ -7,42 +7,42 @@ using Microsoft.AspNetCore.Mvc;
 namespace GestaoInvestimentos.API.Controllers
 {
     [ApiController]
-    [Route("api/products")]
-    public class ProductsController : ControllerBase
+    [Route("api/categories")]
+    public class CategoriesController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public ProductsController(IMediator mediator)
+        public CategoriesController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "Administrator")]
-        public async Task<ActionResult> GetProductsById(Guid id)
+        public async Task<ActionResult> GetCategoryById(Guid id)
         {
-            var getProductByIdQuery = new GetProductByIdQuery(id);
+            var getCategoryByIdQuery = new GetCategoryByIdQuery(id);
 
-            var product = await _mediator.Send(getProductByIdQuery);
+            var category = await _mediator.Send(getCategoryByIdQuery);
 
-            if (product == null)
+            if (category == null)
                 return NotFound();
 
-            return Ok(product);
+            return Ok(category);
         }
 
         [HttpPost]
         [Authorize(Roles = "Administrator")]
-        public async Task<ActionResult> CreateProduct([FromBody] CreateProductCommand command)
+        public async Task<ActionResult> CreateCategory([FromBody] CreateCategoryCommand command)
         {
             var id = await _mediator.Send(command);
 
-            return CreatedAtAction(nameof(GetProductsById), new { id }, command);
+            return CreatedAtAction(nameof(GetCategoryById), new { id }, command);
         }
 
         [HttpPut]
         [Authorize(Roles = "Administrator")]
-        public async Task<ActionResult> UpdateProduct([FromBody] UpdateProductCommand command)
+        public async Task<ActionResult> UpdateCategory([FromBody] UpdateCategoryCommand command)
         {
             await _mediator.Send(command);
 
@@ -51,9 +51,9 @@ namespace GestaoInvestimentos.API.Controllers
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> DeleteProduct(Guid id)
+        public async Task<IActionResult> DeleteCategory(Guid id)
         {
-            var command = new RemoveProductCommand(id);
+            var command = new RemoveCategoryCommand(id);
 
             await _mediator.Send(command);
 
