@@ -12,6 +12,7 @@ namespace GestaoInvestimentos.API.Extensions
             services.AddScoped<IProductsRepository, ProductsRepository>();
             services.AddScoped<IUsersRepository, UsersRepository>();
             services.AddScoped<ICategoriesRepository, CategoriesRepository>();
+            services.AddScoped<IOperationTypeRepository, OperationTypeRepository>();
             services.AddScoped<IAuthService, AuthService>();
 
             return services;

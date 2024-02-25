@@ -1,23 +1,42 @@
 ﻿using GestaoInvestimentos.Domain.Entities;
 using GestaoInvestimentos.Domain.Interfaces.Repositories;
+using GestaoInvestimentos.Infra.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace GestaoInvestimentos.Infra.Repositories
 {
     public class OperationTypeRepository : IOperationTypeRepository
     {
-        public Task AddAsync(OperationType category)
+        private readonly InvestmentManagerDataContext _context;
+
+        public OperationTypeRepository(InvestmentManagerDataContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Task<OperationType> GetOperationByIdAsync(Guid id)
+        public async Task AddAsync(OperationType operation)
         {
-            throw new NotImplementedException();
+            await _context.OperationTypes.AddAsync(operation);
+            await _context.SaveChangesAsync();
         }
 
-        public void Update(OperationType category)
+        public async Task<OperationType> GetOperationByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var operation = await _context.OperationTypes.FirstOrDefaultAsync(p => p.Id == id);
+
+            if (operation == null)
+                return null;
+
+            if (operation.DeletedAt != null)
+                return null;
+
+            return operation;
+        }
+
+        public void Update(OperationType operation)
+        {
+            _context.OperationTypes.Update(operation);
+            _context.SaveChanges();
         }
     }
 }
