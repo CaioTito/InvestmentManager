@@ -1,22 +1,35 @@
-﻿namespace GestaoInvestimentos.Domain.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace GestaoInvestimentos.Domain.Entities
 {
     public class Transactions : BaseEntity
     {
-        public Transactions(Guid operationId, Guid productId, Guid userId)
+        public Transactions()
         {
+            
+        }
+        public Transactions(int quantity, Guid operationId, Guid productId, Guid userId, OperationType operationType, Products product, Users user)
+        {
+            Quantity = quantity;
             OperationId = operationId;
             ProductId = productId;
             UserId = userId;
-
-            OperationType = new();
-            Product = new();
-            User = new();
+            OperationType = operationType;
+            Product = product;
+            User = user;
         }
+        public int Quantity { get; private set; }
         public Guid OperationId { get; private set; }
         public Guid ProductId { get; private set; }
         public Guid UserId { get; private set; }
-        public OperationType OperationType { get; private set; }
-        public Products Product { get; private set; }
-        public Users User { get; private set; }
+        public OperationType OperationType { get; private set; } = new();
+        public Products Product { get; private set; } = new();
+        public Users User { get; private set; } = new();
+
+        public void UpdateQuantity(int quantity)
+        {
+            Quantity += quantity;
+            UpdatedAt = DateTime.Now;
+        }
     }
 }

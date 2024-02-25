@@ -1,6 +1,7 @@
 ﻿using GestaoInvestimentos.Domain.Entities;
 using GestaoInvestimentos.Domain.Interfaces.Repositories;
 using GestaoInvestimentos.Infra.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace GestaoInvestimentos.Infra.Repositories
 {
@@ -19,9 +20,23 @@ namespace GestaoInvestimentos.Infra.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public Task<UserProducts> ConsultProducts(Guid id)
+        public async Task<UserProducts> GetUserProducts(Guid userId, Guid productId)
         {
-            throw new NotImplementedException();
+            var userProduct = await _context.UserProducts.FirstOrDefaultAsync(up => up.UserId == userId && up.ProductId == productId);
+
+            if (userProduct == null)
+                return null;
+
+            if (userProduct.DeletedAt != null)
+                return null;
+
+            return userProduct;
+        }
+
+        public void Update(UserProducts userProduct)
+        {
+            _context.UserProducts.Update(userProduct);
+            _context.SaveChanges();
         }
     }
 }

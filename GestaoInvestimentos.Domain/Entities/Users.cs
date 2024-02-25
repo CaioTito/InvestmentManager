@@ -22,7 +22,6 @@
         public string Email { get; private set; } = string.Empty;
         public int Role { get; private set; }
         public decimal Balance { get; private set; }
-        public List<Products> Products { get; private set; } = [];
         public List<Transactions> Transactions { get; private set; } = [];
         public List<UserProducts> UserProducts { get; private set; } = [];
 

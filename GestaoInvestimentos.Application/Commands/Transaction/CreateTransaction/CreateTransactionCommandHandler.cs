@@ -8,13 +8,17 @@ namespace GestaoInvestimentos.Application.Commands
     {
         private readonly ITransactionRepository _transactionRepository;
         private readonly IUsersRepository _userRepository;
-        private readonly IProductsRepository _productsRepository;
+        private readonly IProductsRepository _productRepository;
+        private readonly IUserProductsRepository _userProductsRepository;
+        private readonly IOperationTypeRepository _operationTypeRepository;
 
-        public CreateTransactionCommandHandler(ITransactionRepository transactionRepository, IUsersRepository userRepository, IProductsRepository productsRepository)
+        public CreateTransactionCommandHandler(ITransactionRepository transactionRepository, IUsersRepository userRepository, IProductsRepository productRepository, IUserProductsRepository userProductsRepository, IOperationTypeRepository operationTypeRepository)
         {
             _transactionRepository = transactionRepository;
             _userRepository = userRepository;
-            _productsRepository = productsRepository;
+            _productRepository = productRepository;
+            _userProductsRepository = userProductsRepository;
+            _operationTypeRepository = operationTypeRepository;
         }
 
         public async Task<Guid> Handle(CreateTransactionCommand request, CancellationToken cancellationToken)
@@ -22,17 +26,36 @@ namespace GestaoInvestimentos.Application.Commands
             try
             {
                 var user = await _userRepository.GetUserByIdAsync(request.UserId);
-                var product = await _productsRepository.GetProductByIdAsync(request.ProductId);
+                var product = await _productRepository.GetProductByIdAsync(request.ProductId);
+                var operationType = await _operationTypeRepository.GetOperationByIdAsync(request.OperationId);
 
                 if (user.Balance < (request.Quantity * product.MinimumInvestment))
                     throw new Exception("O seu saldo é insuficiente para essa quantidade");
+                user.UpdateBalance((request.Quantity * product.MinimumInvestment));
 
-               user.UpdateBalance((request.Quantity * product.MinimumInvestment));
+                var transaction = new Transactions(request.Quantity, request.OperationId, request.ProductId, request.UserId, operationType, product, user);
+                var userProduct = new UserProducts(request.Quantity, request.ProductId, request.UserId, user, product);
 
-                var transaction = new Transactions(request.OperationId, request.ProductId, 
-                    request.UserId);
+                var userProductRelation = await _userProductsRepository.GetUserProducts(request.UserId, request.ProductId);
+                if(userProductRelation != null)
+                {
+                    userProductRelation.UpdateQuantity(request.Quantity);
+                    _userProductsRepository.Update(userProductRelation);
 
-                await _transactionRepository.AddAsync(transaction, user, product);
+                    var transactionRelation = await _transactionRepository.GetTransaction(request.UserId, request.ProductId, request.OperationId);
+                    if (transactionRelation != null)
+                    {
+                        transactionRelation.UpdateQuantity(request.Quantity);
+                        _transactionRepository.Update(transactionRelation);
+
+                        return transaction.Id;
+                    }
+
+                    return transaction.Id;
+                }
+
+                await _transactionRepository.AddAsync(transaction);
+                await _userProductsRepository.AddAsync(userProduct);
 
                 return transaction.Id;
             }

@@ -1,5 +1,4 @@
 ﻿using GestaoInvestimentos.Application.Commands;
-using GestaoInvestimentos.Application.Queries;
 using GestaoInvestimentos.Application.Queries.Transaction.GetTransactionById;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -32,7 +31,7 @@ namespace GestaoInvestimentos.API.Controllers
             return Ok(investment);
         }
 
-        [HttpPost]
+        [HttpPost("buy")]
         [Authorize(Roles = "Customer")]
         public async Task<ActionResult> BuyInvestment([FromBody] CreateTransactionCommand command)
         {
@@ -42,11 +41,11 @@ namespace GestaoInvestimentos.API.Controllers
 
                 return CreatedAtAction(nameof(GetTransactionByIdQuery), new { id }, command);
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
-            
+
         }
     }
 }

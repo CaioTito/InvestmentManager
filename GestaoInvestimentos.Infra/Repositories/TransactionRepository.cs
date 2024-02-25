@@ -14,11 +14,8 @@ namespace GestaoInvestimentos.Infra.Repositories
             _context = context;
         }
 
-        public async Task AddAsync(Transactions transactions, Users user, Products product)
+        public async Task AddAsync(Transactions transactions)
         {
-            user.Products.Add(product);
-            _context.SaveChanges();
-
             await _context.Transactions.AddAsync(transactions);
             await _context.SaveChangesAsync();
         }
@@ -73,6 +70,25 @@ namespace GestaoInvestimentos.Infra.Repositories
                 return null;
 
             return transactions;
+        }
+
+        public async Task<Transactions> GetTransaction(Guid userId, Guid productId, Guid operationId)
+        {
+            var userProduct = await _context.Transactions.FirstOrDefaultAsync(t => t.UserId == userId && t.ProductId == productId && t.OperationId == operationId);
+
+            if (userProduct == null)
+                return null;
+
+            if (userProduct.DeletedAt != null)
+                return null;
+
+            return userProduct;
+        }
+
+        public void Update(Transactions transaction)
+        {
+            _context.Transactions.Update(transaction);
+            _context.SaveChanges();
         }
     }
 }

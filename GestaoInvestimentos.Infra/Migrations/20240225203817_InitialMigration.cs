@@ -88,34 +88,11 @@ namespace GestaoInvestimentos.Infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductsUsers",
-                columns: table => new
-                {
-                    ProductsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UsersId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProductsUsers", x => new { x.ProductsId, x.UsersId });
-                    table.ForeignKey(
-                        name: "FK_ProductsUsers_Products_ProductsId",
-                        column: x => x.ProductsId,
-                        principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ProductsUsers_Users_UsersId",
-                        column: x => x.UsersId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Transactions",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
                     OperationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -181,11 +158,6 @@ namespace GestaoInvestimentos.Infra.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductsUsers_UsersId",
-                table: "ProductsUsers",
-                column: "UsersId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Transactions_OperationId",
                 table: "Transactions",
                 column: "OperationId");
@@ -214,9 +186,6 @@ namespace GestaoInvestimentos.Infra.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "ProductsUsers");
-
             migrationBuilder.DropTable(
                 name: "Transactions");
 

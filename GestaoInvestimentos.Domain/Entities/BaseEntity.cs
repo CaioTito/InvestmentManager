@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace GestaoInvestimentos.Domain.Entities
 {
@@ -6,11 +8,9 @@ namespace GestaoInvestimentos.Domain.Entities
     {
         protected BaseEntity()
         {
-            Id = Guid.NewGuid();
             CreatedAt = DateTime.Now;
             UpdatedAt = DateTime.Now;
         }
-
         public Guid Id { get; private set; }
         public DateTime CreatedAt { get; private set; }
         public DateTime UpdatedAt { get; set; }

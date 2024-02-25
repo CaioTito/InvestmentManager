@@ -4,17 +4,14 @@
     {
         public OperationType()
         {
-            Transactions = [];
         }
         public OperationType(string name)
         {
             Name = name;
-
-            Transactions = [];
         }
 
         public string Name { get; set; } = string.Empty;
-        public List<Transactions> Transactions { get; private set; }
+        public List<Transactions> Transactions { get; private set; } = [];
 
         public void Update(string name)
         {

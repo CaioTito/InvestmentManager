@@ -130,6 +130,9 @@ namespace GestaoInvestimentos.Infra.Migrations
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
@@ -222,21 +225,6 @@ namespace GestaoInvestimentos.Infra.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("ProductsUsers", b =>
-                {
-                    b.Property<Guid>("ProductsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("UsersId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("ProductsId", "UsersId");
-
-                    b.HasIndex("UsersId");
-
-                    b.ToTable("ProductsUsers");
-                });
-
             modelBuilder.Entity("GestaoInvestimentos.Domain.Entities.Products", b =>
                 {
                     b.HasOne("GestaoInvestimentos.Domain.Entities.Category", "Category")
@@ -298,21 +286,6 @@ namespace GestaoInvestimentos.Infra.Migrations
                     b.Navigation("Product");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("ProductsUsers", b =>
-                {
-                    b.HasOne("GestaoInvestimentos.Domain.Entities.Products", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GestaoInvestimentos.Domain.Entities.Users", null)
-                        .WithMany()
-                        .HasForeignKey("UsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("GestaoInvestimentos.Domain.Entities.Category", b =>
