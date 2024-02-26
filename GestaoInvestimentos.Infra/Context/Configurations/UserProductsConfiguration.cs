@@ -14,14 +14,12 @@ namespace GestaoInvestimentos.Infra.Context.Configurations
             builder
                .HasOne(x => x.Product)
                .WithMany(x => x.UserProducts)
-               .HasForeignKey("ProductId")
                .HasConstraintName("FK_UserProducts_ProductId")
                .OnDelete(DeleteBehavior.Restrict);
 
             builder
                 .HasOne(x => x.User)
                 .WithMany(x => x.UserProducts)
-                .HasForeignKey("UserId")
                 .HasConstraintName("FK_UserProducts_UserId")
                 .OnDelete(DeleteBehavior.Restrict);
         }

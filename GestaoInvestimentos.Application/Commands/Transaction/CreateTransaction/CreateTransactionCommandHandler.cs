@@ -34,11 +34,11 @@ namespace GestaoInvestimentos.Application.Commands
                     throw new Exception("O seu saldo é insuficiente para essa quantidade");
                 user.UpdateBalanceBuy(request.Value);
 
-                var transaction = new Transactions(quantity, request.Value, request.OperationId, request.ProductId, request.UserId, operationType, product, user);
-                var userProduct = new UserProducts(quantity, request.Value, request.ProductId, request.UserId, user, product);
+                var transaction = new Transactions(quantity, request.Value, operationType, product, user);
+                var userProduct = new UserProducts(quantity, request.Value, user, product);
 
                 var userProductRelation = await _userProductsRepository.GetUserProducts(request.UserId, request.ProductId);
-                if(userProductRelation != null)
+                if (userProductRelation != null)
                 {
                     userProductRelation.UpdateQuantityBuy(quantity, request.Value);
                     _userProductsRepository.Update(userProductRelation);
@@ -54,6 +54,17 @@ namespace GestaoInvestimentos.Application.Commands
 
                     return transaction.Id;
                 }
+                var transactionRelations = await _transactionRepository.GetTransactionRelation(request.UserId, request.ProductId, request.OperationId);
+                if (transactionRelations != null)
+                {
+                    transactionRelations.UpdateQuantityBuy(quantity, request.Value);
+                    _transactionRepository.Update(transactionRelations
+                        );
+
+                    await _userProductsRepository.AddAsync(userProduct);
+
+                    return transaction.Id;
+                }                
 
                 await _transactionRepository.AddAsync(transaction);
                 await _userProductsRepository.AddAsync(userProduct);

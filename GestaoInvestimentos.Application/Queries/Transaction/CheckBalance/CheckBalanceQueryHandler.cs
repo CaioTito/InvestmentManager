@@ -1,8 +1,6 @@
 ﻿using GestaoInvestimentos.Application.ViewModels;
 using GestaoInvestimentos.Domain.Interfaces.Repositories;
-using GestaoInvestimentos.Domain.Interfaces.Services;
 using MediatR;
-using System.Transactions;
 
 namespace GestaoInvestimentos.Application.Queries
 {
@@ -37,7 +35,7 @@ namespace GestaoInvestimentos.Application.Queries
                 productsBalanceList.Add(productsBalanceViewModel);
             }
 
-            var checkBalanceViewModel =  new CheckBalanceViewModel(user.Name, user.Balance , productsBalanceList);
+            var checkBalanceViewModel = new CheckBalanceViewModel(user.Name, user.Balance, productsBalanceList);
 
             return checkBalanceViewModel;
         }

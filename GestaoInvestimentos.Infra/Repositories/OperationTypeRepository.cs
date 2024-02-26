@@ -22,7 +22,7 @@ namespace GestaoInvestimentos.Infra.Repositories
 
         public async Task<OperationType> GetOperationByIdAsync(Guid id)
         {
-            var operation = await _context.OperationTypes.AsNoTracking().FirstOrDefaultAsync(ot => ot.Id == id && ot.DeletedAt == null);
+            var operation = await _context.OperationTypes.FirstOrDefaultAsync(ot => ot.Id == id && ot.DeletedAt == null);
 
             if (operation == null)
                 return null;

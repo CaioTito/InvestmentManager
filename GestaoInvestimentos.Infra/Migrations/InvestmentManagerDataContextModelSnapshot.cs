@@ -124,7 +124,7 @@ namespace GestaoInvestimentos.Infra.Migrations
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("OperationId")
+                    b.Property<Guid>("OperationTypeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ProductId")
@@ -144,7 +144,7 @@ namespace GestaoInvestimentos.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OperationId");
+                    b.HasIndex("OperationTypeId");
 
                     b.HasIndex("ProductId");
 
@@ -247,7 +247,7 @@ namespace GestaoInvestimentos.Infra.Migrations
                 {
                     b.HasOne("GestaoInvestimentos.Domain.Entities.OperationType", "OperationType")
                         .WithMany("Transactions")
-                        .HasForeignKey("OperationId")
+                        .HasForeignKey("OperationTypeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
                         .HasConstraintName("FK_Transactions_OperationId");

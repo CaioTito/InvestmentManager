@@ -31,14 +31,14 @@ namespace GestaoInvestimentos.Application.Commands
 
                 var quantity = (request.Value / product.MinimumInvestment);
 
-                var transaction = new Transactions(quantity, request.Value, request.OperationId, request.ProductId, request.UserId, operationType, product, user);
-                var userProduct = new UserProducts(quantity, request.Value, request.ProductId, request.UserId, user, product);
+                var transaction = new Transactions(quantity, request.Value, operationType, product, user);
+                var userProduct = new UserProducts(quantity, request.Value, user, product);
 
                 var userProductRelation = await _userProductsRepository.GetUserProducts(request.UserId, request.ProductId);
 
                 if (userProductRelation != null)
                 {
-                    if (userProductRelation.Quantity < 0)
+                    if (userProductRelation.Quantity < 0 || userProductRelation.Quantity < quantity)
                         throw new Exception("Você está tentando vender uma quantidade maior do que você tem.");
 
                     user.UpdateBalanceSell(request.Value);
@@ -47,12 +47,13 @@ namespace GestaoInvestimentos.Application.Commands
                     if (userProductRelation.Quantity == 0)
                         userProductRelation.Delete();
                     _userProductsRepository.Update(userProductRelation);
+                    _userRepository.Update(user);
 
                     var transactionRelation = await _transactionRepository.GetTransactionRelation(request.UserId, request.ProductId, request.OperationId);
 
                     if (transactionRelation != null)
                     {
-                        if (transactionRelation.Quantity < 0)
+                        if (transactionRelation.Quantity < 0 || transactionRelation.Quantity < quantity)
                             throw new Exception("Você está tentando vender uma quantidade maior do que você tem.");
 
                         transactionRelation.UpdateQuantitySell(quantity, request.Value);
@@ -63,11 +64,12 @@ namespace GestaoInvestimentos.Application.Commands
                         return transaction.Id;
                     }
 
+                    await _transactionRepository.AddAsync(transaction);
+
+                    return transaction.Id;
                 }
-
-                await _transactionRepository.AddAsync(transaction);
-
-                return transaction.Id;
+                else
+                    throw new Exception("Você está tentando vender um produto que não possui.");                
             }
             catch (Exception)
             {

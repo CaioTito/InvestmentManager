@@ -32,11 +32,10 @@ namespace GestaoInvestimentos.Infra.Repositories
 
         public async Task<List<Transactions>> GetTransactionByOperationIdAsync(Guid id)
         {
-            var transactions = await _context.Transactions.AsNoTracking()
+            var transactions = await _context.Transactions
                     .Include(x => x.User)
                     .Include(x => x.Product)
                     .Where(x => x.OperationType.Id == id)
-                    .Where(p => p.OperationId == id)
                     .Where(t => t.DeletedAt == null)
                     .Include(x => x.OperationType)
                     .ToListAsync();
@@ -49,11 +48,10 @@ namespace GestaoInvestimentos.Infra.Repositories
 
         public async Task<List<Transactions>> GetTransactionByProductIdAsync(Guid id)
         {
-            var transactions = await _context.Transactions.AsNoTracking()
+            var transactions = await _context.Transactions
                     .Include(x => x.User)
                     .Include(x => x.Product)
                     .Where(x => x.Product.Id == id)
-                    .Where(p => p.ProductId == id)
                     .Where(t => t.DeletedAt == null)
                     .Include(x => x.OperationType)
                     .ToListAsync();
@@ -66,11 +64,10 @@ namespace GestaoInvestimentos.Infra.Repositories
 
         public async Task<List<Transactions>> GetTransactionByUserId(Guid userId)
         {
-            var transactions = await _context.Transactions.AsNoTracking()
+            var transactions = await _context.Transactions
                     .Include(x => x.User)
                     .Where(x => x.User.Id == userId)
                     .Include(x => x.Product)
-                    .Where(p => p.UserId == userId)
                     .Where(t => t.DeletedAt == null)
                     .Include(x => x.OperationType)
                     .ToListAsync();
@@ -83,7 +80,10 @@ namespace GestaoInvestimentos.Infra.Repositories
 
         public async Task<Transactions> GetTransactionRelation(Guid userId, Guid productId, Guid operationId)
         {
-            var userProduct = await _context.Transactions.AsNoTracking().FirstOrDefaultAsync(t => t.UserId == userId && t.ProductId == productId && t.OperationId == operationId && t.DeletedAt == null);
+            var userProduct = await _context.Transactions
+                    .Include(x => x.User)
+                    .Include(x => x.Product)
+                    .FirstOrDefaultAsync(t => t.User.Id == userId && t.Product.Id == productId && t.OperationType.Id == operationId && t.DeletedAt == null);
 
             if (userProduct == null)
                 return null;

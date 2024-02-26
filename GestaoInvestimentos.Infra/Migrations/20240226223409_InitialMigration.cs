@@ -94,7 +94,7 @@ namespace GestaoInvestimentos.Infra.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Quantity = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Value = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    OperationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    OperationTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -106,7 +106,7 @@ namespace GestaoInvestimentos.Infra.Migrations
                     table.PrimaryKey("PK_Transactions", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Transactions_OperationId",
-                        column: x => x.OperationId,
+                        column: x => x.OperationTypeId,
                         principalTable: "OperationTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -131,8 +131,8 @@ namespace GestaoInvestimentos.Infra.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Quantity = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Value = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -160,9 +160,9 @@ namespace GestaoInvestimentos.Infra.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Transactions_OperationId",
+                name: "IX_Transactions_OperationTypeId",
                 table: "Transactions",
-                column: "OperationId");
+                column: "OperationTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Transactions_ProductId",

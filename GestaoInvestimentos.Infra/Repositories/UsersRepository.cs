@@ -28,7 +28,7 @@ namespace GestaoInvestimentos.Infra.Repositories
         }
         public async Task<Users> GetUserByIdAsync(Guid id)
         {
-            var user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id && u.DeletedAt == null);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id && u.DeletedAt == null);
 
             if (user == null)
                 return null;
@@ -45,7 +45,7 @@ namespace GestaoInvestimentos.Infra.Repositories
 
         public async Task<Users> GetByPasswordAndEmailAsync(string email, string password)
         {
-            var user = await _context.Users.AsNoTracking().SingleOrDefaultAsync(u => u.Email == email && u.Password == password && u.DeletedAt == null);
+            var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == email && u.Password == password && u.DeletedAt == null);
 
             if (user == null)
                 return null;
