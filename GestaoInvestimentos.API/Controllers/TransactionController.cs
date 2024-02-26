@@ -32,20 +32,6 @@ namespace GestaoInvestimentos.API.Controllers
             return Ok(investment);
         }
 
-        [HttpGet("user/{id}")]
-        [Authorize(Roles = "Customer")]
-        public async Task<ActionResult> GetTransactionByUserIdAsync(Guid id)
-        {
-            var getTransactionByUserIdQuery = new GetTransactionByUserIdQuery(id);
-
-            var investment = await _mediator.Send(getTransactionByUserIdQuery);
-
-            if (investment == null)
-                return NotFound();
-
-            return Ok(investment);
-        }
-
         [HttpGet("product/{id}")]
         [Authorize(Roles = "Customer")]
         public async Task<ActionResult> GetTransactionByProductIdAsync(Guid id)
@@ -67,6 +53,34 @@ namespace GestaoInvestimentos.API.Controllers
             var getTransactionByOperationIdQuery = new GetTransactionByOperationIdQuery(id);
 
             var investment = await _mediator.Send(getTransactionByOperationIdQuery);
+
+            if (investment == null)
+                return NotFound();
+
+            return Ok(investment);
+        }
+
+        [HttpGet("statement/{id}")]
+        [Authorize(Roles = "Customer")]
+        public async Task<ActionResult> GetTransactionByUserIdAsync(Guid id)
+        {
+            var getTransactionByUserIdQuery = new GetTransactionByUserIdQuery(id);
+
+            var investment = await _mediator.Send(getTransactionByUserIdQuery);
+
+            if (investment == null)
+                return NotFound();
+
+            return Ok(investment);
+        }
+
+        [HttpGet("checkBalance/{id}")]
+        [Authorize(Roles = "Customer")]
+        public async Task<ActionResult> CheckBalanceAsync(Guid id)
+        {
+            var checkBalanceQuery = new CheckBalanceQuery(id);
+
+            var investment = await _mediator.Send(checkBalanceQuery);
 
             if (investment == null)
                 return NotFound();

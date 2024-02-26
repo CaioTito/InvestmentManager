@@ -32,7 +32,7 @@ namespace GestaoInvestimentos.Application.Commands
 
                 if (user.Balance < request.Value)
                     throw new Exception("O seu saldo é insuficiente para essa quantidade");
-                user.UpdateBalance(request.Value);
+                user.UpdateBalanceBuy(request.Value);
 
                 var transaction = new Transactions(quantity, request.Value, request.OperationId, request.ProductId, request.UserId, operationType, product, user);
                 var userProduct = new UserProducts(quantity, request.Value, request.ProductId, request.UserId, user, product);

@@ -32,9 +32,15 @@
             UpdatedAt = DateTime.Now;
         }
 
-        public void UpdateBalance(decimal costs)
+        public void UpdateBalanceBuy(decimal costs)
         {
             Balance -= costs;
+            UpdatedAt = DateTime.Now;
+        }
+
+        public void UpdateBalanceSell(decimal costs)
+        {
+            Balance += costs;
             UpdatedAt = DateTime.Now;
         }
     }

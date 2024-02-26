@@ -41,6 +41,8 @@ namespace GestaoInvestimentos.Application.Commands
                     if (userProductRelation.Quantity < 0)
                         throw new Exception("Você está tentando vender uma quantidade maior do que você tem.");
 
+                    user.UpdateBalanceSell(request.Value);
+
                     userProductRelation.UpdateQuantitySell(quantity, request.Value);
                     if (userProductRelation.Quantity == 0)
                         userProductRelation.Delete();

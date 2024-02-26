@@ -33,6 +33,24 @@ namespace GestaoInvestimentos.Infra.Repositories
             return userProduct;
         }
 
+        public async Task<List<UserProducts>> GetUserProductsByUserId(Guid userId)
+        {
+            var userProduct = await _context.UserProducts
+                    .Include(x => x.User)
+                    .Include(x => x.Product)
+                    .Where(x => x.UserId == userId)
+                    .Where(p => p.User.Id == userId)
+                    .Where(t => t.DeletedAt == null)
+                    .ToListAsync();
+
+
+
+            if (userProduct == null)
+                return null;
+
+            return userProduct;
+        }
+
         public void Update(UserProducts userProduct)
         {
             _context.UserProducts.Update(userProduct);

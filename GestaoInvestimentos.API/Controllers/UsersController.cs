@@ -40,6 +40,14 @@ namespace GestaoInvestimentos.API.Controllers
             return CreatedAtAction(nameof(GetUserById), new { id }, command);
         }
 
+        [HttpPost("login")]
+        [AllowAnonymous]
+
+        public async Task<IActionResult> Login([FromBody] LoginUserCommand login)
+        {
+            return Ok(new { token = await _mediator.Send(login) });
+        }
+
         [HttpPut]
         [Authorize(Roles = "Administrator")]
         public async Task<ActionResult> UpdateUser([FromBody] UpdateUserCommand command)
@@ -47,14 +55,6 @@ namespace GestaoInvestimentos.API.Controllers
             await _mediator.Send(command);
 
             return NoContent();
-        }
-
-        [HttpPost("login")]
-        [AllowAnonymous]
-
-        public async Task<IActionResult> Login([FromBody] LoginUserCommand login)
-        {
-            return Ok(new { token = await _mediator.Send(login) });
         }
 
         [HttpDelete("{id}")]
