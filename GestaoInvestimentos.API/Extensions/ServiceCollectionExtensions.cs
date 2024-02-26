@@ -16,6 +16,7 @@ namespace GestaoInvestimentos.API.Extensions
             services.AddScoped<ITransactionRepository, TransactionRepository>();
             services.AddScoped<IUserProductsRepository, UserProductsRepository>();
             services.AddScoped<IAuthService, AuthService>();
+            services.AddTransient<IEmailService, EmailService>();
 
             return services;
         }

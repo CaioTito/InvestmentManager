@@ -1,5 +1,6 @@
 ﻿using GestaoInvestimentos.Application.ViewModels;
 using GestaoInvestimentos.Domain.Interfaces.Repositories;
+using GestaoInvestimentos.Domain.Interfaces.Services;
 using MediatR;
 using System.Transactions;
 
@@ -9,11 +10,13 @@ namespace GestaoInvestimentos.Application.Queries
     {
         private readonly IUsersRepository _userRepository;
         private readonly IUserProductsRepository _userProductsRepository;
+        private readonly IEmailService _emailService;
 
-        public CheckBalanceQueryHandler(IUsersRepository userRepository, IUserProductsRepository userProductsRepository)
+        public CheckBalanceQueryHandler(IUsersRepository userRepository, IUserProductsRepository userProductsRepository, IEmailService emailService)
         {
             _userRepository = userRepository;
             _userProductsRepository = userProductsRepository;
+            _emailService = emailService;
         }
 
         public async Task<CheckBalanceViewModel> Handle(CheckBalanceQuery request, CancellationToken cancellationToken)
@@ -36,7 +39,11 @@ namespace GestaoInvestimentos.Application.Queries
                 productsBalanceList.Add(productsBalanceViewModel);
             }
 
-            return new CheckBalanceViewModel(user.Name, user.Balance , productsBalanceList);
+            var checkBalanceViewModel =  new CheckBalanceViewModel(user.Name, user.Balance , productsBalanceList);
+
+            await _emailService.SendEmailAsync("caio_tito@hotmail.com", "Teste", "Este é um e-mail de testes");
+
+            return checkBalanceViewModel;
         }
     }
 }
