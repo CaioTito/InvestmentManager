@@ -10,13 +10,11 @@ namespace GestaoInvestimentos.Application.Queries
     {
         private readonly IUsersRepository _userRepository;
         private readonly IUserProductsRepository _userProductsRepository;
-        private readonly IEmailService _emailService;
 
-        public CheckBalanceQueryHandler(IUsersRepository userRepository, IUserProductsRepository userProductsRepository, IEmailService emailService)
+        public CheckBalanceQueryHandler(IUsersRepository userRepository, IUserProductsRepository userProductsRepository)
         {
             _userRepository = userRepository;
             _userProductsRepository = userProductsRepository;
-            _emailService = emailService;
         }
 
         public async Task<CheckBalanceViewModel> Handle(CheckBalanceQuery request, CancellationToken cancellationToken)
@@ -40,8 +38,6 @@ namespace GestaoInvestimentos.Application.Queries
             }
 
             var checkBalanceViewModel =  new CheckBalanceViewModel(user.Name, user.Balance , productsBalanceList);
-
-            await _emailService.SendEmailAsync("caio_tito@hotmail.com", "Teste", "Este é um e-mail de testes");
 
             return checkBalanceViewModel;
         }

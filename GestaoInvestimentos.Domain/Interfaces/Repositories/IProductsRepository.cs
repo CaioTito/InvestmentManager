@@ -7,5 +7,6 @@ namespace GestaoInvestimentos.Domain.Interfaces.Repositories
         Task<Products> GetProductByIdAsync(Guid id);
         Task AddAsync(Products product);
         void Update(Products product);
+        List<Products> CheckProductExpiration();
     }
 }

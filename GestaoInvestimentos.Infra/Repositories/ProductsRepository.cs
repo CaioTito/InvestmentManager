@@ -36,5 +36,15 @@ namespace GestaoInvestimentos.Infra.Repositories
             _context.Products.Update(product);
             _context.SaveChanges();
         }
+
+        public List<Products> CheckProductExpiration()
+        {
+            var products = _context.Products.Where(p => EF.Functions.DateDiffMonth(DateTime.Now, p.ExpirationDate) < 3).ToList();
+
+            if (products == null)
+                return null;
+
+            return products;
+        }
     }
 }

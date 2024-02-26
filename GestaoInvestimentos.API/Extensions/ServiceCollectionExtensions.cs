@@ -1,7 +1,9 @@
 ﻿using GestaoInvestimentos.Domain.Interfaces.Repositories;
 using GestaoInvestimentos.Domain.Interfaces.Services;
 using GestaoInvestimentos.Infra.Auth;
+using GestaoInvestimentos.Infra.Email;
 using GestaoInvestimentos.Infra.Repositories;
+using Quartz;
 
 namespace GestaoInvestimentos.API.Extensions
 {
@@ -17,6 +19,16 @@ namespace GestaoInvestimentos.API.Extensions
             services.AddScoped<IUserProductsRepository, UserProductsRepository>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddTransient<IEmailService, EmailService>();
+            
+            services.AddQuartz(options =>
+            {
+                options.UseMicrosoftDependencyInjectionJobFactory();
+            });
+            services.AddQuartzHostedService(options => 
+                {
+                    options.WaitForJobsToComplete = true;
+                });
+            services.ConfigureOptions<EmailBackgroundJobSetup>();
 
             return services;
         }

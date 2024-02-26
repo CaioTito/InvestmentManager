@@ -2,11 +2,11 @@
 using System.Net.Mail;
 using System.Net;
 
-namespace GestaoInvestimentos.Infra.Auth
+namespace GestaoInvestimentos.Infra.Email
 {
     public class EmailService : IEmailService
     {
-        public Task SendEmailAsync(string email, string subject, string message)
+        public void SendEmail(string email, string subject, string message)
         {
             var client = new SmtpClient("smtp.gmail.com", 587)
             {
@@ -15,7 +15,7 @@ namespace GestaoInvestimentos.Infra.Auth
                 Credentials = new NetworkCredential("caiotiito@gmail.com", "dykx swzl yrss doxq")
             };
 
-            return client.SendMailAsync(
+            client.Send(
                 new MailMessage(from: "caiotiito@gmail.com",
                                 to: email,
                                 subject,
