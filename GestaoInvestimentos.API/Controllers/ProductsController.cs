@@ -17,6 +17,15 @@ namespace GestaoInvestimentos.API.Controllers
             _mediator = mediator;
         }
 
+        [HttpGet]
+        [Authorize(Roles = "Administrator, Customer")]
+        public async Task<ActionResult> GetAll([FromQuery] GetAllProductsQuery getAllProductsQuery)
+        {
+            var products = await _mediator.Send(getAllProductsQuery);
+
+            return Ok(products);
+        }
+
         [HttpGet("{id}")]
         [Authorize(Roles = "Administrator")]
         public async Task<ActionResult> GetProductsById(Guid id)

@@ -17,21 +17,27 @@ namespace GestaoInvestimentos.Infra.Repositories
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
         }
+        public async Task<List<Users>> GetAllUsers(string query)
+        {
+            var users = await _context.Users.AsNoTracking().Where(u => u.Name.Contains(query) && u.DeletedAt == null).ToListAsync();
 
+            if (users == null)
+                return null;
+
+            return users;
+        }
         public async Task<Users> GetUserByIdAsync(Guid id)
         {
-            var user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(u=> u.Id == id);
+            var user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id && u.DeletedAt == null);
 
             if (user == null)
                 return null;
 
-            if (user.DeletedAt != null)
-                return null;
 
             return user;
         }
 
-        public void Update(Users user) 
+        public void Update(Users user)
         {
             _context.Users.Update(user);
             _context.SaveChanges();
@@ -39,7 +45,7 @@ namespace GestaoInvestimentos.Infra.Repositories
 
         public async Task<Users> GetByPasswordAndEmailAsync(string email, string password)
         {
-            var user = await _context.Users.AsNoTracking().SingleOrDefaultAsync(u => u.Email == email && u.Password == password);
+            var user = await _context.Users.AsNoTracking().SingleOrDefaultAsync(u => u.Email == email && u.Password == password && u.DeletedAt == null);
 
             if (user == null)
                 return null;

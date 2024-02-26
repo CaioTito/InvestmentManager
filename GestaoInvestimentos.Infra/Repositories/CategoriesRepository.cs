@@ -22,12 +22,19 @@ namespace GestaoInvestimentos.Infra.Repositories
 
         public async Task<Category> GetCategoryByIdAsync(Guid id)
         {
-            var category = await _context.Categories.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+            var category = await _context.Categories.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id && p.DeletedAt == null);
 
             if (category == null)
                 return null;
 
-            if (category.DeletedAt != null)
+            return category;
+        }
+
+        public async Task<List<Category>> GetAllCategory(string query)
+        {
+            var category = await _context.Categories.AsNoTracking().Where(c => c.Name.Contains(query) && c.DeletedAt == null).ToListAsync();
+
+            if (category == null)
                 return null;
 
             return category;

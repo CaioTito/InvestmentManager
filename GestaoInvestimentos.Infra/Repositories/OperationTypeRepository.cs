@@ -22,15 +22,22 @@ namespace GestaoInvestimentos.Infra.Repositories
 
         public async Task<OperationType> GetOperationByIdAsync(Guid id)
         {
-            var operation = await _context.OperationTypes.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+            var operation = await _context.OperationTypes.AsNoTracking().FirstOrDefaultAsync(ot => ot.Id == id && ot.DeletedAt == null);
 
             if (operation == null)
                 return null;
 
-            if (operation.DeletedAt != null)
+            return operation;
+        }
+
+        public async Task<List<OperationType>> GetAllOperationTypes(string query)
+        {
+            var operationTypes = await _context.OperationTypes.AsNoTracking().Where(ot => ot.Name.Contains(query) && ot.DeletedAt == null).ToListAsync();
+
+            if (operationTypes == null)
                 return null;
 
-            return operation;
+            return operationTypes;
         }
 
         public void Update(OperationType operation)

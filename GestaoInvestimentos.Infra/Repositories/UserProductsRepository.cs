@@ -22,12 +22,9 @@ namespace GestaoInvestimentos.Infra.Repositories
 
         public async Task<UserProducts> GetUserProducts(Guid userId, Guid productId)
         {
-            var userProduct = await _context.UserProducts.AsNoTracking().FirstOrDefaultAsync(up => up.UserId == userId && up.ProductId == productId);
+            var userProduct = await _context.UserProducts.AsNoTracking().FirstOrDefaultAsync(up => up.UserId == userId && up.ProductId == productId && up.DeletedAt == null);
 
             if (userProduct == null)
-                return null;
-
-            if (userProduct.DeletedAt != null)
                 return null;
 
             return userProduct;

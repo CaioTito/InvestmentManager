@@ -22,12 +22,9 @@ namespace GestaoInvestimentos.Infra.Repositories
 
         public async Task<Transactions> GetTransactionByIdAsync(Guid id)
         {
-            var transactions = await _context.Transactions.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+            var transactions = await _context.Transactions.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id && p.DeletedAt == null);
 
             if (transactions == null)
-                return null;
-
-            if (transactions.DeletedAt != null)
                 return null;
 
             return transactions;
@@ -86,12 +83,9 @@ namespace GestaoInvestimentos.Infra.Repositories
 
         public async Task<Transactions> GetTransactionRelation(Guid userId, Guid productId, Guid operationId)
         {
-            var userProduct = await _context.Transactions.AsNoTracking().FirstOrDefaultAsync(t => t.UserId == userId && t.ProductId == productId && t.OperationId == operationId);
+            var userProduct = await _context.Transactions.AsNoTracking().FirstOrDefaultAsync(t => t.UserId == userId && t.ProductId == productId && t.OperationId == operationId && t.DeletedAt == null);
 
             if (userProduct == null)
-                return null;
-
-            if (userProduct.DeletedAt != null)
                 return null;
 
             return userProduct;

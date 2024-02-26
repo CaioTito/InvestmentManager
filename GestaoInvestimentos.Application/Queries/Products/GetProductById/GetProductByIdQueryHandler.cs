@@ -23,7 +23,7 @@ namespace GestaoInvestimentos.Application.Queries
             return new ProductViewModel(
                 product.Id,
                 product.Name,
-                product.Category,
+                product.Category.Id,
                 product.Liquidity,
                 product.AnnualRate,
                 product.MinimumInvestment,

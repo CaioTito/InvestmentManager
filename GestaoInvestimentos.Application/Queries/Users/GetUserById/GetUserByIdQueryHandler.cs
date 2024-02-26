@@ -1,4 +1,5 @@
 ﻿using GestaoInvestimentos.Application.ViewModels;
+using GestaoInvestimentos.Domain.Enums;
 using GestaoInvestimentos.Domain.Interfaces.Repositories;
 using MediatR;
 
@@ -20,7 +21,7 @@ namespace GestaoInvestimentos.Application.Queries
             if (user == null)
                 return null;
 
-            return new UserViewModel(user.Id, user.Name, user.Email, user.Role);
+            return new UserViewModel(user.Id, user.Name, user.Email, Enum.GetName(typeof(ERole), user.Role));
         }
     }
 }

@@ -20,15 +20,22 @@ namespace GestaoInvestimentos.Infra.Repositories
 
         public async Task<Products> GetProductByIdAsync(Guid id)
         {
-            var product = await _context.Products.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+            var product = await _context.Products.AsNoTracking().Include(p=> p.Category).FirstOrDefaultAsync(p => p.Id == id && p.DeletedAt == null);
 
             if (product == null)
                 return null;
 
-            if (product.DeletedAt != null)
+            return product;
+        }
+
+        public async Task<List<Products>> GetAllProducts(string query)
+        {
+            var products = await _context.Products.AsNoTracking().Include(p => p.Category).Where(p => p.Name.Contains(query) && p.DeletedAt == null).ToListAsync();
+
+            if (products == null)
                 return null;
 
-            return product;
+            return products;
         }
 
         public void Update(Products product)
@@ -39,7 +46,7 @@ namespace GestaoInvestimentos.Infra.Repositories
 
         public List<Products> CheckProductExpiration()
         {
-            var products = _context.Products.AsNoTracking().Where(p => EF.Functions.DateDiffMonth(DateTime.Now, p.ExpirationDate) < 3).ToList();
+            var products = _context.Products.AsNoTracking().Where(p => EF.Functions.DateDiffMonth(DateTime.Now, p.ExpirationDate) < 3 && p.DeletedAt == null).ToList();
 
             if (products == null)
                 return null;

@@ -1,5 +1,6 @@
 ﻿using GestaoInvestimentos.Application.Commands;
 using GestaoInvestimentos.Application.Queries;
+using GestaoInvestimentos.Application.Queries.Users.GetAllUsers;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,15 @@ namespace GestaoInvestimentos.API.Controllers
         public UsersController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Administrator")]
+        public async Task<ActionResult> GetAll([FromQuery] GetAllUsersQuery getAllUsersQuery)
+        {
+            var users = await _mediator.Send(getAllUsersQuery);
+
+            return Ok(users);
         }
 
         [HttpGet("{id}")]
@@ -46,6 +56,14 @@ namespace GestaoInvestimentos.API.Controllers
         public async Task<IActionResult> Login([FromBody] LoginUserCommand login)
         {
             return Ok(new { token = await _mediator.Send(login) });
+        }
+        [HttpPost("promote")]
+        [Authorize(Roles = "Administrator")]
+        public async Task<ActionResult> PromoteAdmin([FromBody] PromoteUserCommand command)
+        {
+            await _mediator.Send(command);
+
+            return NoContent();
         }
 
         [HttpPut]

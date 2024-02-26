@@ -1,5 +1,6 @@
 ﻿using GestaoInvestimentos.Application.Commands;
 using GestaoInvestimentos.Application.Queries;
+using GestaoInvestimentos.Application.Queries.Category.GetAllCategories;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,15 @@ namespace GestaoInvestimentos.API.Controllers
         public OperationTypesController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Administrator, Customer")]
+        public async Task<ActionResult> GetAll([FromQuery] GetAllOperationTypesQuery getAllOperationTypesQuery)
+        {
+            var operationTypes = await _mediator.Send(getAllOperationTypesQuery);
+
+            return Ok(operationTypes);
         }
 
         [HttpGet("{id}")]
