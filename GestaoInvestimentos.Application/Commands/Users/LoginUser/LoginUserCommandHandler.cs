@@ -27,7 +27,7 @@ namespace GestaoInvestimentos.Application.Commands
                 return null;
             }
 
-            return _authService.GenerateJwtToken(user.Email, user.Role);
+            return _authService.GenerateJwtToken(user.Email, user.Role, user.Id);
         }
     }
 }

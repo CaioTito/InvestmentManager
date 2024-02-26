@@ -1,6 +1,7 @@
 ﻿using GestaoInvestimentos.Application.Commands;
 using GestaoInvestimentos.Application.Queries;
 using GestaoInvestimentos.Application.Queries.Transaction.GetTransactionById;
+using GestaoInvestimentos.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +34,7 @@ namespace GestaoInvestimentos.API.Controllers
         }
 
         [HttpGet("product/{id}")]
-        [Authorize(Roles = "Customer")]
+        [Authorize(Roles = "Administrator")]
         public async Task<ActionResult> GetTransactionByProductIdAsync(Guid id)
         {
             var getTransactionByProductIdQuery = new GetTransactionByProductIdQuery(id);
@@ -47,7 +48,7 @@ namespace GestaoInvestimentos.API.Controllers
         }
 
         [HttpGet("operationType/{id}")]
-        [Authorize(Roles = "Customer")]
+        [Authorize(Roles = "Administrator")]
         public async Task<ActionResult> GetTransactionByOperationIdAsync(Guid id)
         {
             var getTransactionByOperationIdQuery = new GetTransactionByOperationIdQuery(id);
@@ -60,32 +61,45 @@ namespace GestaoInvestimentos.API.Controllers
             return Ok(investment);
         }
 
-        [HttpGet("statement/{id}")]
+        [HttpGet("statement")]
         [Authorize(Roles = "Customer")]
-        public async Task<ActionResult> GetTransactionByUserIdAsync(Guid id)
+        public async Task<ActionResult> GetTransactionByUserIdAsync()
         {
-            var getTransactionByUserIdQuery = new GetTransactionByUserIdQuery(id);
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "UserId");
+            if (userIdClaim != null)
+            {
+                Guid.TryParse(userIdClaim.Value, out var userId);
 
-            var investment = await _mediator.Send(getTransactionByUserIdQuery);
+                var getTransactionByUserIdQuery = new GetTransactionByUserIdQuery(userId);
 
-            if (investment == null)
-                return NotFound();
+                var investment = await _mediator.Send(getTransactionByUserIdQuery);
 
-            return Ok(investment);
+                if (investment == null)
+                    return NotFound();
+
+                return Ok(investment);
+            }
+            return BadRequest("User ID não identificado"); 
         }
 
-        [HttpGet("checkBalance/{id}")]
+        [HttpGet("checkBalance")]
         [Authorize(Roles = "Customer")]
-        public async Task<ActionResult> CheckBalanceAsync(Guid id)
+        public async Task<ActionResult> CheckBalanceAsync()
         {
-            var checkBalanceQuery = new CheckBalanceQuery(id);
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "UserId");
+            if (userIdClaim != null)
+            {
+                Guid.TryParse(userIdClaim.Value, out var userId);
+                var checkBalanceQuery = new CheckBalanceQuery(userId);
 
-            var investment = await _mediator.Send(checkBalanceQuery);
+                var investment = await _mediator.Send(checkBalanceQuery);
 
-            if (investment == null)
-                return NotFound();
+                if (investment == null)
+                    return NotFound();
 
-            return Ok(investment);
+                return Ok(investment);
+            }
+            return BadRequest("User ID não identificado");
         }
 
         [HttpPost("buy")]

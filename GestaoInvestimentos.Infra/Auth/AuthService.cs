@@ -21,7 +21,7 @@ namespace GestaoInvestimentos.Infra.Auth
             _configuration = configuration;
         }
 
-        public string GenerateJwtToken(string email, int role)
+        public string GenerateJwtToken(string email, int role, Guid id)
         {
             var issuer = _configuration["Jwt:Issuer"];
             var audience = _configuration["Jwt:Audience"];
@@ -33,7 +33,8 @@ namespace GestaoInvestimentos.Infra.Auth
             var claims = new List<Claim>
         {
             new Claim(ClaimTypes.Email, email),
-            new Claim(ClaimTypes.Role, Enum.GetName(typeof(ERole), role))
+            new Claim(ClaimTypes.Role, Enum.GetName(typeof(ERole), role)),
+            new Claim("UserId", id.ToString())
         };
 
             
