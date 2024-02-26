@@ -8,9 +8,10 @@ namespace GestaoInvestimentos.Domain.Entities
         {
             
         }
-        public Transactions(int quantity, Guid operationId, Guid productId, Guid userId, OperationType operationType, Products product, Users user)
+        public Transactions(decimal quantity, decimal value, Guid operationId, Guid productId, Guid userId, OperationType operationType, Products product, Users user)
         {
             Quantity = quantity;
+            Value = value;
             OperationId = operationId;
             ProductId = productId;
             UserId = userId;
@@ -18,7 +19,8 @@ namespace GestaoInvestimentos.Domain.Entities
             Product = product;
             User = user;
         }
-        public int Quantity { get; private set; }
+        public decimal Quantity { get; private set; }
+        public decimal Value { get; private set; }
         public Guid OperationId { get; private set; }
         public Guid ProductId { get; private set; }
         public Guid UserId { get; private set; }
@@ -26,15 +28,17 @@ namespace GestaoInvestimentos.Domain.Entities
         public Products Product { get; private set; } = new();
         public Users User { get; private set; } = new();
 
-        public void UpdateQuantityBuy(int quantity)
+        public void UpdateQuantityBuy(decimal quantity, decimal value)
         {
             Quantity += quantity;
+            Value += value;
             UpdatedAt = DateTime.Now;
         }
 
-        public void UpdateQuantitySell(int quantity)
+        public void UpdateQuantitySell(decimal quantity, decimal value)
         {
             Quantity -= quantity;
+            Value -= value;
             UpdatedAt = DateTime.Now;
         }
     }

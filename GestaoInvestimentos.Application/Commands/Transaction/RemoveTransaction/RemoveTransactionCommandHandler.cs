@@ -29,8 +29,10 @@ namespace GestaoInvestimentos.Application.Commands
                 var product = await _productRepository.GetProductByIdAsync(request.ProductId);
                 var operationType = await _operationTypeRepository.GetOperationByIdAsync(request.OperationId);
 
-                var transaction = new Transactions(request.Quantity, request.OperationId, request.ProductId, request.UserId, operationType, product, user);
-                var userProduct = new UserProducts(request.Quantity, request.ProductId, request.UserId, user, product);
+                var quantity = (request.Value / product.MinimumInvestment);
+
+                var transaction = new Transactions(quantity, request.Value, request.OperationId, request.ProductId, request.UserId, operationType, product, user);
+                var userProduct = new UserProducts(quantity, request.Value, request.ProductId, request.UserId, user, product);
 
                 var userProductRelation = await _userProductsRepository.GetUserProducts(request.UserId, request.ProductId);
 
@@ -39,7 +41,7 @@ namespace GestaoInvestimentos.Application.Commands
                     if (userProductRelation.Quantity < 0)
                         throw new Exception("Você está tentando vender uma quantidade maior do que você tem.");
 
-                    userProductRelation.UpdateQuantitySell(request.Quantity);
+                    userProductRelation.UpdateQuantitySell(quantity, request.Value);
                     if (userProductRelation.Quantity == 0)
                         userProductRelation.Delete();
                     _userProductsRepository.Update(userProductRelation);
@@ -51,7 +53,7 @@ namespace GestaoInvestimentos.Application.Commands
                         if (transactionRelation.Quantity < 0)
                             throw new Exception("Você está tentando vender uma quantidade maior do que você tem.");
 
-                        transactionRelation.UpdateQuantitySell(request.Quantity);
+                        transactionRelation.UpdateQuantitySell(quantity, request.Value);
                         if (transactionRelation.Quantity == 0)
                             transactionRelation.Delete();
                         _transactionRepository.Update(transactionRelation);

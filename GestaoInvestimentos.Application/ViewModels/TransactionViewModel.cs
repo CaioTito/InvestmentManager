@@ -2,7 +2,7 @@
 {
     public class TransactionViewModel
     {
-        public TransactionViewModel(Guid id, string productName, int quantity, string operationType, string userName)
+        public TransactionViewModel(Guid id, string productName, decimal quantity, string operationType, string userName)
         {
             Id = id;
             ProductName = productName;
@@ -13,7 +13,7 @@
 
         public Guid Id { get; private set; }
         public string ProductName { get; private set; }
-        public int Quantity { get; private set; }
+        public decimal Quantity { get; private set; }
         public string OperationType { get; private set; }
         public string UserName { get; private set; }
     }

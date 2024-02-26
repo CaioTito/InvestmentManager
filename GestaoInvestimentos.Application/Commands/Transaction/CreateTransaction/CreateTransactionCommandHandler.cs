@@ -28,24 +28,25 @@ namespace GestaoInvestimentos.Application.Commands
                 var user = await _userRepository.GetUserByIdAsync(request.UserId);
                 var product = await _productRepository.GetProductByIdAsync(request.ProductId);
                 var operationType = await _operationTypeRepository.GetOperationByIdAsync(request.OperationId);
+                var quantity = (request.Value / product.MinimumInvestment);
 
-                if (user.Balance < (request.Quantity * product.MinimumInvestment))
+                if (user.Balance < request.Value)
                     throw new Exception("O seu saldo é insuficiente para essa quantidade");
-                user.UpdateBalance((request.Quantity * product.MinimumInvestment));
+                user.UpdateBalance(request.Value);
 
-                var transaction = new Transactions(request.Quantity, request.OperationId, request.ProductId, request.UserId, operationType, product, user);
-                var userProduct = new UserProducts(request.Quantity, request.ProductId, request.UserId, user, product);
+                var transaction = new Transactions(quantity, request.Value, request.OperationId, request.ProductId, request.UserId, operationType, product, user);
+                var userProduct = new UserProducts(quantity, request.Value, request.ProductId, request.UserId, user, product);
 
                 var userProductRelation = await _userProductsRepository.GetUserProducts(request.UserId, request.ProductId);
                 if(userProductRelation != null)
                 {
-                    userProductRelation.UpdateQuantityBuy(request.Quantity);
+                    userProductRelation.UpdateQuantityBuy(quantity, request.Value);
                     _userProductsRepository.Update(userProductRelation);
 
                     var transactionRelation = await _transactionRepository.GetTransactionRelation(request.UserId, request.ProductId, request.OperationId);
                     if (transactionRelation != null)
                     {
-                        transactionRelation.UpdateQuantityBuy(request.Quantity);
+                        transactionRelation.UpdateQuantityBuy(quantity, request.Value);
                         _transactionRepository.Update(transactionRelation);
 
                         return transaction.Id;
