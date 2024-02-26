@@ -22,7 +22,7 @@ namespace GestaoInvestimentos.Infra.Repositories
 
         public async Task<Category> GetCategoryByIdAsync(Guid id)
         {
-            var category = await _context.Categories.FirstOrDefaultAsync(p => p.Id == id);
+            var category = await _context.Categories.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
 
             if (category == null)
                 return null;

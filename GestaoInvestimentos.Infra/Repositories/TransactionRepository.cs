@@ -22,7 +22,7 @@ namespace GestaoInvestimentos.Infra.Repositories
 
         public async Task<Transactions> GetTransactionByIdAsync(Guid id)
         {
-            var transactions = await _context.Transactions.FirstOrDefaultAsync(p => p.Id == id);
+            var transactions = await _context.Transactions.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
 
             if (transactions == null)
                 return null;
@@ -35,7 +35,7 @@ namespace GestaoInvestimentos.Infra.Repositories
 
         public async Task<List<Transactions>> GetTransactionByOperationIdAsync(Guid id)
         {
-            var transactions = await _context.Transactions
+            var transactions = await _context.Transactions.AsNoTracking()
                     .Include(x => x.User)
                     .Include(x => x.Product)
                     .Where(x => x.OperationType.Id == id)
@@ -52,7 +52,7 @@ namespace GestaoInvestimentos.Infra.Repositories
 
         public async Task<List<Transactions>> GetTransactionByProductIdAsync(Guid id)
         {
-            var transactions = await _context.Transactions
+            var transactions = await _context.Transactions.AsNoTracking()
                     .Include(x => x.User)
                     .Include(x => x.Product)
                     .Where(x => x.Product.Id == id)
@@ -69,7 +69,7 @@ namespace GestaoInvestimentos.Infra.Repositories
 
         public async Task<List<Transactions>> GetTransactionByUserId(Guid userId)
         {
-            var transactions = await _context.Transactions
+            var transactions = await _context.Transactions.AsNoTracking()
                     .Include(x => x.User)
                     .Where(x => x.User.Id == userId)
                     .Include(x => x.Product)
@@ -86,7 +86,7 @@ namespace GestaoInvestimentos.Infra.Repositories
 
         public async Task<Transactions> GetTransactionRelation(Guid userId, Guid productId, Guid operationId)
         {
-            var userProduct = await _context.Transactions.FirstOrDefaultAsync(t => t.UserId == userId && t.ProductId == productId && t.OperationId == operationId);
+            var userProduct = await _context.Transactions.AsNoTracking().FirstOrDefaultAsync(t => t.UserId == userId && t.ProductId == productId && t.OperationId == operationId);
 
             if (userProduct == null)
                 return null;
