@@ -44,7 +44,7 @@ namespace GestaoInvestimentos.Application.Commands
                         userProductRelation.Delete();
                     _userProductsRepository.Update(userProductRelation);
 
-                    var transactionRelation = await _transactionRepository.GetTransaction(request.UserId, request.ProductId, request.OperationId);
+                    var transactionRelation = await _transactionRepository.GetTransactionRelation(request.UserId, request.ProductId, request.OperationId);
 
                     if (transactionRelation != null)
                     {

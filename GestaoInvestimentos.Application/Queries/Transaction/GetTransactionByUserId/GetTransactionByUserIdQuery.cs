@@ -3,7 +3,7 @@ using MediatR;
 
 namespace GestaoInvestimentos.Application.Queries
 {
-    public class GetTransactionByUserIdQuery : IRequest<TransactionViewModel>
+    public class GetTransactionByUserIdQuery : IRequest<List<TransactionViewModel>>
     {
         public GetTransactionByUserIdQuery(Guid id)
         {

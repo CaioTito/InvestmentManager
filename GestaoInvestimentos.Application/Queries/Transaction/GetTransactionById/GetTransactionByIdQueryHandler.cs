@@ -22,10 +22,10 @@ namespace GestaoInvestimentos.Application.Queries.Transaction.GetTransactionById
 
             return new TransactionViewModel(
                 transaction.Id,
-                transaction.OperationId,
-                transaction.ProductId,
-                transaction.UserId,
-                transaction.CreatedAt);
+                transaction.Product.Name,
+                transaction.Quantity,
+                transaction.OperationType.Name,
+                transaction.User.Name);
         }
     }
 }

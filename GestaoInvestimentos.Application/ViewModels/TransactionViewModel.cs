@@ -2,19 +2,19 @@
 {
     public class TransactionViewModel
     {
-        public TransactionViewModel(Guid id, Guid operationId, Guid productId, Guid userId, DateTime createdAt)
+        public TransactionViewModel(Guid id, string productName, int quantity, string operationType, string userName)
         {
             Id = id;
-            OperationId = operationId;
-            ProductId = productId;
-            UserId = userId;
-            CreatedAt = createdAt;
+            ProductName = productName;
+            Quantity = quantity;
+            OperationType = operationType;
+            UserName = userName;
         }
 
         public Guid Id { get; private set; }
-        public Guid OperationId { get; private set; }
-        public Guid ProductId { get; private set; }
-        public Guid UserId { get; private set; }
-        public DateTime CreatedAt { get; private set; }
+        public string ProductName { get; private set; }
+        public int Quantity { get; private set; }
+        public string OperationType { get; private set; }
+        public string UserName { get; private set; }
     }
 }

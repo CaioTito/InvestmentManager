@@ -4,7 +4,7 @@ using MediatR;
 
 namespace GestaoInvestimentos.Application.Queries
 {
-    public class GetTransactionByProductIdQueryHandler : IRequestHandler<GetTransactionByProductIdQuery, TransactionViewModel>
+    public class GetTransactionByProductIdQueryHandler : IRequestHandler<GetTransactionByProductIdQuery, List<TransactionViewModel>>
     {
         private readonly ITransactionRepository _transactionRepository;
 
@@ -13,19 +13,28 @@ namespace GestaoInvestimentos.Application.Queries
             _transactionRepository = transactionRepository;
         }
 
-        public async Task<TransactionViewModel> Handle(GetTransactionByProductIdQuery request, CancellationToken cancellationToken)
+        public async Task<List<TransactionViewModel>> Handle(GetTransactionByProductIdQuery request, CancellationToken cancellationToken)
         {
             var transaction = await _transactionRepository.GetTransactionByProductIdAsync(request.Id);
 
             if (transaction == null)
                 return null;
 
-            return new TransactionViewModel(
-                transaction.Id,
-                transaction.OperationId,
-                transaction.ProductId,
-                transaction.UserId,
-                transaction.CreatedAt);
+            var transactionList = new List<TransactionViewModel>();
+
+            foreach (var t in transaction)
+            {
+                var transactionViewModel = new TransactionViewModel(
+                t.Id,
+                t.Product.Name,
+                t.Quantity,
+                t.OperationType.Name,
+                t.User.Name);
+
+                transactionList.Add(transactionViewModel);
+            }
+
+            return transactionList;
         }
     }
 }

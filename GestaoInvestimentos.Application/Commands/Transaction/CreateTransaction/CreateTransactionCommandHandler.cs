@@ -42,7 +42,7 @@ namespace GestaoInvestimentos.Application.Commands
                     userProductRelation.UpdateQuantityBuy(request.Quantity);
                     _userProductsRepository.Update(userProductRelation);
 
-                    var transactionRelation = await _transactionRepository.GetTransaction(request.UserId, request.ProductId, request.OperationId);
+                    var transactionRelation = await _transactionRepository.GetTransactionRelation(request.UserId, request.ProductId, request.OperationId);
                     if (transactionRelation != null)
                     {
                         transactionRelation.UpdateQuantityBuy(request.Quantity);

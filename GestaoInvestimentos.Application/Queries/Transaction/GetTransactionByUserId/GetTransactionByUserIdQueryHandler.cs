@@ -4,18 +4,18 @@ using MediatR;
 
 namespace GestaoInvestimentos.Application.Queries
 {
-    public class GetTransactionByOperationIdQueryHandler : IRequestHandler<GetTransactionByOperationIdQuery, List<TransactionViewModel>>
+    public class GetTransactionByUserIdQueryHandler : IRequestHandler<GetTransactionByUserIdQuery, List<TransactionViewModel>>
     {
         private readonly ITransactionRepository _transactionRepository;
 
-        public GetTransactionByOperationIdQueryHandler(ITransactionRepository transactionRepository)
+        public GetTransactionByUserIdQueryHandler(ITransactionRepository transactionRepository)
         {
             _transactionRepository = transactionRepository;
         }
 
-        public async Task<List<TransactionViewModel>> Handle(GetTransactionByOperationIdQuery request, CancellationToken cancellationToken)
+        public async Task<List<TransactionViewModel>> Handle(GetTransactionByUserIdQuery request, CancellationToken cancellationToken)
         {
-            var transaction = await _transactionRepository.GetTransactionByOperationIdAsync(request.Id);
+            var transaction = await _transactionRepository.GetTransactionByUserId(request.Id);
 
             if (transaction == null)
                 return null;

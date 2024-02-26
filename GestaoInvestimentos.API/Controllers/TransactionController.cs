@@ -1,4 +1,5 @@
 ﻿using GestaoInvestimentos.Application.Commands;
+using GestaoInvestimentos.Application.Queries;
 using GestaoInvestimentos.Application.Queries.Transaction.GetTransactionById;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -24,6 +25,48 @@ namespace GestaoInvestimentos.API.Controllers
             var getTransactionByIdQuery = new GetTransactionByIdQuery(id);
 
             var investment = await _mediator.Send(getTransactionByIdQuery);
+
+            if (investment == null)
+                return NotFound();
+
+            return Ok(investment);
+        }
+
+        [HttpGet("user/{id}")]
+        [Authorize(Roles = "Customer")]
+        public async Task<ActionResult> GetTransactionByUserIdAsync(Guid id)
+        {
+            var getTransactionByUserIdQuery = new GetTransactionByUserIdQuery(id);
+
+            var investment = await _mediator.Send(getTransactionByUserIdQuery);
+
+            if (investment == null)
+                return NotFound();
+
+            return Ok(investment);
+        }
+
+        [HttpGet("product/{id}")]
+        [Authorize(Roles = "Customer")]
+        public async Task<ActionResult> GetTransactionByProductIdAsync(Guid id)
+        {
+            var getTransactionByProductIdQuery = new GetTransactionByProductIdQuery(id);
+
+            var investment = await _mediator.Send(getTransactionByProductIdQuery);
+
+            if (investment == null)
+                return NotFound();
+
+            return Ok(investment);
+        }
+
+        [HttpGet("operationType/{id}")]
+        [Authorize(Roles = "Customer")]
+        public async Task<ActionResult> GetTransactionByOperationIdAsync(Guid id)
+        {
+            var getTransactionByOperationIdQuery = new GetTransactionByOperationIdQuery(id);
+
+            var investment = await _mediator.Send(getTransactionByOperationIdQuery);
 
             if (investment == null)
                 return NotFound();

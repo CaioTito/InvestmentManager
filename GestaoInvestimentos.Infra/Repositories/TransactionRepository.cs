@@ -33,46 +33,58 @@ namespace GestaoInvestimentos.Infra.Repositories
             return transactions;
         }
 
-        public async Task<Transactions> GetTransactionByOperationIdAsync(Guid id)
+        public async Task<List<Transactions>> GetTransactionByOperationIdAsync(Guid id)
         {
-            var transactions = await _context.Transactions.FirstOrDefaultAsync(p => p.OperationId == id);
+            var transactions = await _context.Transactions
+                    .Include(x => x.User)
+                    .Include(x => x.Product)
+                    .Where(x => x.OperationType.Id == id)
+                    .Where(p => p.OperationId == id)
+                    .Where(t => t.DeletedAt == null)
+                    .Include(x => x.OperationType)
+                    .ToListAsync();
 
             if (transactions == null)
-                return null;
-
-            if (transactions.DeletedAt != null)
                 return null;
 
             return transactions;
         }
 
-        public async Task<Transactions> GetTransactionByProductIdAsync(Guid id)
+        public async Task<List<Transactions>> GetTransactionByProductIdAsync(Guid id)
         {
-            var transactions = await _context.Transactions.FirstOrDefaultAsync(p => p.ProductId == id);
+            var transactions = await _context.Transactions
+                    .Include(x => x.User)
+                    .Include(x => x.Product)
+                    .Where(x => x.Product.Id == id)
+                    .Where(p => p.ProductId == id)
+                    .Where(t => t.DeletedAt == null)
+                    .Include(x => x.OperationType)
+                    .ToListAsync();
 
             if (transactions == null)
-                return null;
-
-            if (transactions.DeletedAt != null)
                 return null;
 
             return transactions;
         }
 
-        public async Task<Transactions> GetTransactionByUserIdAsync(Guid id)
+        public async Task<List<Transactions>> GetTransactionByUserId(Guid userId)
         {
-            var transactions = await _context.Transactions.FirstOrDefaultAsync(p => p.UserId == id);
+            var transactions = await _context.Transactions
+                    .Include(x => x.User)
+                    .Where(x => x.User.Id == userId)
+                    .Include(x => x.Product)
+                    .Where(p => p.UserId == userId)
+                    .Where(t => t.DeletedAt == null)
+                    .Include(x => x.OperationType)
+                    .ToListAsync();
 
             if (transactions == null)
-                return null;
-
-            if (transactions.DeletedAt != null)
                 return null;
 
             return transactions;
         }
 
-        public async Task<Transactions> GetTransaction(Guid userId, Guid productId, Guid operationId)
+        public async Task<Transactions> GetTransactionRelation(Guid userId, Guid productId, Guid operationId)
         {
             var userProduct = await _context.Transactions.FirstOrDefaultAsync(t => t.UserId == userId && t.ProductId == productId && t.OperationId == operationId);
 
