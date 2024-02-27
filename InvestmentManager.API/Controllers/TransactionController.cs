@@ -1,9 +1,11 @@
 ﻿using InvestmentManager.Application.Commands;
 using InvestmentManager.Application.Queries;
 using InvestmentManager.Application.Queries.Transaction.GetTransactionById;
+using InvestmentManager.Application.ViewModels;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace InvestmentManager.API.Controllers
 {
@@ -18,7 +20,13 @@ namespace InvestmentManager.API.Controllers
             _mediator = mediator;
         }
 
+        /// <summary>
+        /// Retorna a transação de acordo com o digitado no id
+        /// </summary>
+        /// <param name="id">ID da transação</param>
         [HttpGet("{id}")]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(TransactionViewModel))]
+        [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(NotFoundResult))]
         [Authorize(Roles = "Administrator")]
         public async Task<ActionResult> GetTransactionByIdQuery(Guid id)
         {
@@ -32,7 +40,13 @@ namespace InvestmentManager.API.Controllers
             return Ok(investment);
         }
 
+        /// <summary>
+        /// Retorna as transações de acordo com o digitado no id do produto
+        /// </summary>
+        /// <param name="id">ID do produto</param>
         [HttpGet("product/{id}")]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(List<TransactionViewModel>))]
+        [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(NotFoundResult))]
         [Authorize(Roles = "Administrator")]
         public async Task<ActionResult> GetTransactionByProductIdAsync(Guid id)
         {
@@ -46,7 +60,13 @@ namespace InvestmentManager.API.Controllers
             return Ok(investment);
         }
 
+        /// <summary>
+        /// Retorna as transações de acordo com o digitado no id do tipo de operação
+        /// </summary>
+        /// <param name="id">ID do tipo de operação</param>
         [HttpGet("operationType/{id}")]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(List<TransactionViewModel>))]
+        [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(NotFoundResult))]
         [Authorize(Roles = "Administrator")]
         public async Task<ActionResult> GetTransactionByOperationIdAsync(Guid id)
         {
@@ -60,7 +80,12 @@ namespace InvestmentManager.API.Controllers
             return Ok(investment);
         }
 
+        /// <summary>
+        /// Retorna as transações do usuario recuperando seu ID pelo Token
+        /// </summary>
         [HttpGet("statement")]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(List<TransactionViewModel>))]
+        [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(NotFoundResult))]
         [Authorize(Roles = "Customer")]
         public async Task<ActionResult> GetTransactionByUserIdAsync()
         {
@@ -81,7 +106,12 @@ namespace InvestmentManager.API.Controllers
             return BadRequest("Error in UserId identification");
         }
 
+        /// <summary>
+        /// Retorna os saldos do usuario recuperando seu ID pelo Token
+        /// </summary>
         [HttpGet("checkBalance")]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(CheckBalanceViewModel))]
+        [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(NotFoundResult))]
         [Authorize(Roles = "Customer")]
         public async Task<ActionResult> CheckBalanceAsync()
         {
@@ -101,7 +131,12 @@ namespace InvestmentManager.API.Controllers
             return BadRequest("Error in UserId identification");
         }
 
+        /// <summary>
+        /// Operação para compra de um produto
+        /// </summary>
+        /// <param name="command">Ids de Produto, tipo de operação e valor</param>
         [HttpPost("buy")]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(BadRequestResult))]
         [Authorize(Roles = "Customer")]
         public async Task<ActionResult> BuyInvestment([FromBody] CreateTransactionCommand command)
         {
@@ -118,7 +153,12 @@ namespace InvestmentManager.API.Controllers
 
         }
 
+        /// <summary>
+        /// Operação para venda de um produto
+        /// </summary>
+        /// <param name="command">Ids de Produto, tipo de operação e valor</param>
         [HttpPost("sell")]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(BadRequestResult))]
         [Authorize(Roles = "Customer")]
         public async Task<ActionResult> SellInvestment([FromBody] RemoveTransactionCommand command)
         {

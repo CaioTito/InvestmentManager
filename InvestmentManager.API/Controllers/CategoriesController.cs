@@ -1,9 +1,11 @@
 ﻿using InvestmentManager.Application.Commands;
 using InvestmentManager.Application.Queries;
 using InvestmentManager.Application.Queries.Category.GetAllCategories;
+using InvestmentManager.Application.ViewModels;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace InvestmentManager.API.Controllers
 {
@@ -21,9 +23,9 @@ namespace InvestmentManager.API.Controllers
         /// <summary>
         /// Retorna todas as categorias de acordo com o digitado na query
         /// </summary>
-        /// <param name="getAllCategoriesQuery">Texto a ser procurado, pelo nome</param>
-        /// <returns>Retorna uma lista de categorias</returns> 
+        /// <param name="getAllCategoriesQuery">Query de busca</param>
         [HttpGet]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(List<CategoryViewModel>))]
         [Authorize(Roles = "Administrator, Customer")]
         public async Task<ActionResult> GetAll([FromQuery]GetAllCategoriesQuery getAllCategoriesQuery)
         {
@@ -32,7 +34,13 @@ namespace InvestmentManager.API.Controllers
             return Ok(categories);
         }
 
+        /// <summary>
+        /// Retorna a categoria de acordo com o id
+        /// </summary>
+        /// <param name="id">Id da categoria</param>
         [HttpGet("{id}")]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(CategoryViewModel))]
+        [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(NotFoundResult))]
         [Authorize(Roles = "Administrator")]
         public async Task<ActionResult> GetCategoryById(Guid id)
         {
@@ -46,6 +54,10 @@ namespace InvestmentManager.API.Controllers
             return Ok(category);
         }
 
+        /// <summary>
+        /// Cria uma categoria
+        /// </summary>
+        /// <param name="command">Nome da categoria</param>
         [HttpPost]
         [Authorize(Roles = "Administrator")]
         public async Task<ActionResult> CreateCategory([FromBody] CreateCategoryCommand command)
@@ -55,7 +67,12 @@ namespace InvestmentManager.API.Controllers
             return CreatedAtAction(nameof(GetCategoryById), new { id }, command);
         }
 
+        /// <summary>
+        /// Edita uma categoria
+        /// </summary>
+        /// <param name="command">Id e Nome da categoria</param>
         [HttpPut]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [Authorize(Roles = "Administrator")]
         public async Task<ActionResult> UpdateCategory([FromBody] UpdateCategoryCommand command)
         {
@@ -64,7 +81,12 @@ namespace InvestmentManager.API.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Deleta uma categoria
+        /// </summary>
+        /// <param name="id">Id da categoria</param>
         [HttpDelete("{id}")]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteCategory(Guid id)
         {

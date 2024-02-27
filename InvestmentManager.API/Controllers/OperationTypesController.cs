@@ -1,9 +1,11 @@
 ﻿using InvestmentManager.Application.Commands;
 using InvestmentManager.Application.Queries;
 using InvestmentManager.Application.Queries.Category.GetAllCategories;
+using InvestmentManager.Application.ViewModels;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace InvestmentManager.API.Controllers
 {
@@ -18,7 +20,12 @@ namespace InvestmentManager.API.Controllers
             _mediator = mediator;
         }
 
+        /// <summary>
+        /// Retorna todas os tipos de operação de acordo com o digitado na query
+        /// </summary>
+        /// <param name="getAllOperationTypesQuery">Query de busca</param>
         [HttpGet]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(List<OperationTypesViewModel>))]
         [Authorize(Roles = "Administrator, Customer")]
         public async Task<ActionResult> GetAll([FromQuery] GetAllOperationTypesQuery getAllOperationTypesQuery)
         {
@@ -27,7 +34,13 @@ namespace InvestmentManager.API.Controllers
             return Ok(operationTypes);
         }
 
+        /// <summary>
+        /// Retorna o tipo de operação de acordo com o digitado no id
+        /// </summary>
+        /// <param name="id">Id do tipo de operação</param>
         [HttpGet("{id}")]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(OperationTypesViewModel))]
+        [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(NotFoundResult))]
         [Authorize(Roles = "Administrator")]
         public async Task<ActionResult> GetOperationById(Guid id)
         {
@@ -41,6 +54,10 @@ namespace InvestmentManager.API.Controllers
             return Ok(operationType);
         }
 
+        /// <summary>
+        /// Cria um tipo de operação
+        /// </summary>
+        /// <param name="command">Nome do tipo de operação</param>
         [HttpPost]
         [Authorize(Roles = "Administrator")]
         public async Task<ActionResult> CreateOperation([FromBody] CreateOperationTypeCommand command)
@@ -50,7 +67,12 @@ namespace InvestmentManager.API.Controllers
             return CreatedAtAction(nameof(GetOperationById), new { id }, command);
         }
 
+        /// <summary>
+        /// Atualiza um tipo de operação
+        /// </summary>
+        /// <param name="command">Nome e Id do tipo de operação</param>
         [HttpPut]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [Authorize(Roles = "Administrator")]
         public async Task<ActionResult> UpdateOperation([FromBody] UpdateOperationTypeCommand command)
         {
@@ -59,7 +81,12 @@ namespace InvestmentManager.API.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Deleta um tipo de operação
+        /// </summary>
+        /// <param name="id">Id do tipo de operação</param>
         [HttpDelete("{id}")]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteOperation(Guid id)
         {
