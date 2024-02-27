@@ -8,7 +8,7 @@ A API conta com as seguintes **funcionalidades**:
 
 **Gestão dos produtos**
   
-  Realizado a criação de endpoints de maneira a qual o Backoffice possa criar, editar, consultar e deletar produtos.
+  Realizado a criação de endpoints utilizando padrão CQRS, de maneira a qual o Backoffice possa criar, editar, consultar e deletar produtos.
   
 **Disparo de e-mail diário para notificar os administradores a respeito dos produtos com vencimento próximo.**
   
@@ -16,7 +16,15 @@ A API conta com as seguintes **funcionalidades**:
   
 **Criar um serviço que permita o cliente comprar, vender e consultar seus investimentos.**
 
-  Realizado a criação de endpoints de maneira a qual o cliente possa realizar a compra e venda, além de consultar o saldo dos produtos comprados e saldo em conta, além de consulta do historico de transações.
+  Realizado a criação de endpoints utilizando padrão CQRS, de maneira a qual o cliente possa realizar a compra e venda, além de consultar o saldo dos produtos comprados e saldo em conta, além de consulta do historico de transações.
+
+**Autorização e autenticação**
+
+  Feito utilizando através de token JWT, existem duas roles a de Administrador e a de Cliente, contando com os endpoints de cadastro e login disponiveis, para possibilitar a criação do acesso.
+
+**Validação de dados**
+
+  Feito a validação de e-mail e requisitos de senha para o endpoint de criação de usuários
 
 # Endpoints
 
