@@ -3,20 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34616.47
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvestmentManager.API", "GestaoInvestimentos.API\InvestmentManager.API.csproj", "{FBEA706A-A1F8-437B-B01A-E3D97BB18057}"
-	ProjectSection(ProjectDependencies) = postProject
-		{66FE7430-F3C1-4BD7-860E-A5A8822C4D96} = {66FE7430-F3C1-4BD7-860E-A5A8822C4D96}
-		{A167E621-CB38-4CCA-9AE9-51649E88605D} = {A167E621-CB38-4CCA-9AE9-51649E88605D}
-		{F6898E90-A06A-4498-AA5E-4FE07F102943} = {F6898E90-A06A-4498-AA5E-4FE07F102943}
-	EndProjectSection
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvestmentManager.API", "InvestmentManager.API\InvestmentManager.API.csproj", "{82EE68F1-2CFD-41C8-A540-77431ED5682B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvestmentManager.Application", "GestaoInvestimentos.Application\InvestmentManager.Application.csproj", "{66FE7430-F3C1-4BD7-860E-A5A8822C4D96}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvestmentManager.Application", "InvestmentManager.Application\InvestmentManager.Application.csproj", "{A0CE89F0-2916-4F48-995D-37CC2EC5F1F5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvestmentManager.Domain", "GestaoInvestimentos.Domain\InvestmentManager.Domain.csproj", "{F6898E90-A06A-4498-AA5E-4FE07F102943}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvestmentManager.Domain", "InvestmentManager.Domain\InvestmentManager.Domain.csproj", "{140DF237-DEAC-452F-B808-7BD448E2915E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvestmentManager.Infra", "GestaoInvestimentos.Infra\InvestmentManager.Infra.csproj", "{A167E621-CB38-4CCA-9AE9-51649E88605D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvestmentManager.Infra", "InvestmentManager.Infra\InvestmentManager.Infra.csproj", "{F413CDA7-3C34-490A-84DE-B9CAF86E4DCD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvestmentManager.UnitTests", "GestaoInvestimentos.UnitTests\InvestmentManager.UnitTests.csproj", "{CABCB2EC-5BD3-4E05-9602-6C14E2B4F55E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvestmentManager.UnitTests", "InvestmentManager.UnitTests\InvestmentManager.UnitTests.csproj", "{4DA181DA-9A80-4F11-B474-D194216A5126}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,26 +19,26 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FBEA706A-A1F8-437B-B01A-E3D97BB18057}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FBEA706A-A1F8-437B-B01A-E3D97BB18057}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FBEA706A-A1F8-437B-B01A-E3D97BB18057}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FBEA706A-A1F8-437B-B01A-E3D97BB18057}.Release|Any CPU.Build.0 = Release|Any CPU
-		{66FE7430-F3C1-4BD7-860E-A5A8822C4D96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{66FE7430-F3C1-4BD7-860E-A5A8822C4D96}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{66FE7430-F3C1-4BD7-860E-A5A8822C4D96}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{66FE7430-F3C1-4BD7-860E-A5A8822C4D96}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F6898E90-A06A-4498-AA5E-4FE07F102943}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F6898E90-A06A-4498-AA5E-4FE07F102943}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F6898E90-A06A-4498-AA5E-4FE07F102943}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F6898E90-A06A-4498-AA5E-4FE07F102943}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A167E621-CB38-4CCA-9AE9-51649E88605D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A167E621-CB38-4CCA-9AE9-51649E88605D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A167E621-CB38-4CCA-9AE9-51649E88605D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A167E621-CB38-4CCA-9AE9-51649E88605D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CABCB2EC-5BD3-4E05-9602-6C14E2B4F55E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CABCB2EC-5BD3-4E05-9602-6C14E2B4F55E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CABCB2EC-5BD3-4E05-9602-6C14E2B4F55E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CABCB2EC-5BD3-4E05-9602-6C14E2B4F55E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82EE68F1-2CFD-41C8-A540-77431ED5682B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82EE68F1-2CFD-41C8-A540-77431ED5682B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82EE68F1-2CFD-41C8-A540-77431ED5682B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82EE68F1-2CFD-41C8-A540-77431ED5682B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0CE89F0-2916-4F48-995D-37CC2EC5F1F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0CE89F0-2916-4F48-995D-37CC2EC5F1F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0CE89F0-2916-4F48-995D-37CC2EC5F1F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0CE89F0-2916-4F48-995D-37CC2EC5F1F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{140DF237-DEAC-452F-B808-7BD448E2915E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{140DF237-DEAC-452F-B808-7BD448E2915E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{140DF237-DEAC-452F-B808-7BD448E2915E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{140DF237-DEAC-452F-B808-7BD448E2915E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F413CDA7-3C34-490A-84DE-B9CAF86E4DCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F413CDA7-3C34-490A-84DE-B9CAF86E4DCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F413CDA7-3C34-490A-84DE-B9CAF86E4DCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F413CDA7-3C34-490A-84DE-B9CAF86E4DCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DA181DA-9A80-4F11-B474-D194216A5126}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DA181DA-9A80-4F11-B474-D194216A5126}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DA181DA-9A80-4F11-B474-D194216A5126}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DA181DA-9A80-4F11-B474-D194216A5126}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

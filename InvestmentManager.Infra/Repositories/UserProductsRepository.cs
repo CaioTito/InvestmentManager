@@ -35,7 +35,7 @@ namespace InvestmentManager.Infra.Repositories
 
         public async Task<List<UserProducts>> GetUserProductsByUserId(Guid userId)
         {
-            var userProduct = await _context.UserProducts
+            var userProduct = await _context.UserProducts.AsNoTracking()
                     .Include(x => x.User)
                     .Include(x => x.Product)
                     .Where(p => p.User.Id == userId)

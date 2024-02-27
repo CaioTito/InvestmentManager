@@ -22,9 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GestaoInvestimentos.Application\InvestmentManager.Application.csproj" />
-    <ProjectReference Include="..\GestaoInvestimentos.Domain\InvestmentManager.Domain.csproj" />
-    <ProjectReference Include="..\GestaoInvestimentos.Infra\InvestmentManager.Infra.csproj" />
+    <ProjectReference Include="..\InvestmentManager.Application\InvestmentManager.Application.csproj" />
+    <ProjectReference Include="..\InvestmentManager.Domain\InvestmentManager.Domain.csproj" />
+    <ProjectReference Include="..\InvestmentManager.Infra\InvestmentManager.Infra.csproj" />
   </ItemGroup>
 
 </Project>

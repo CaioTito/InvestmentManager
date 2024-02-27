@@ -53,9 +53,6 @@ namespace InvestmentManager.Application.Commands
 
                     if (transactionRelation != null)
                     {
-                        if (transactionRelation.Quantity < 0 || transactionRelation.Quantity < quantity)
-                            throw new Exception("You do not have this quantity of this product");
-
                         transactionRelation.UpdateQuantitySell(quantity, request.Value);
                         if (transactionRelation.Quantity == 0)
                             transactionRelation.Delete();

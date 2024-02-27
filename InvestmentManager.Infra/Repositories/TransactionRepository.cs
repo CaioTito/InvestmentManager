@@ -32,7 +32,7 @@ namespace InvestmentManager.Infra.Repositories
 
         public async Task<List<Transactions>> GetTransactionByOperationIdAsync(Guid id)
         {
-            var transactions = await _context.Transactions
+            var transactions = await _context.Transactions.AsNoTracking()
                     .Include(x => x.User)
                     .Include(x => x.Product)
                     .Where(x => x.OperationType.Id == id)
@@ -48,7 +48,7 @@ namespace InvestmentManager.Infra.Repositories
 
         public async Task<List<Transactions>> GetTransactionByProductIdAsync(Guid id)
         {
-            var transactions = await _context.Transactions
+            var transactions = await _context.Transactions.AsNoTracking()
                     .Include(x => x.User)
                     .Include(x => x.Product)
                     .Where(x => x.Product.Id == id)
@@ -64,7 +64,7 @@ namespace InvestmentManager.Infra.Repositories
 
         public async Task<List<Transactions>> GetTransactionByUserId(Guid userId)
         {
-            var transactions = await _context.Transactions
+            var transactions = await _context.Transactions.AsNoTracking()
                     .Include(x => x.User)
                     .Where(x => x.User.Id == userId)
                     .Include(x => x.Product)

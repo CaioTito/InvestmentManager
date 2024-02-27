@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GestaoInvestimentos.Domain\InvestmentManager.Domain.csproj" />
+    <ProjectReference Include="..\InvestmentManager.Domain\InvestmentManager.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
