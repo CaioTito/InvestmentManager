@@ -28,6 +28,7 @@ Para executar o projeto, siga as seguintes etapas:
 2. Abra o projeto no Visual Studio ou em outra IDE de sua preferência.
 3. Configure a string de conexão do banco de dados no arquivo `appsettings.Development.json`.
 4. No Console do Gerenciador de Pacotes, execute o comando `Update-Database` para criar o banco de dados e suas tabelas.
-5. Rode o Script Inicial em seu cliente SQL, para criação de dados básicos.
-6. Compile o projeto e execute a aplicação.
-7. Use o Swagger ou outra ferramenta similar para testar os endpoints da API.
+5. Utilize um cliente SQL de sua preferencia e faça a conexão ao seu banco de dados local.
+6. Abra o script de nome "Script Inicial Banco de dados" disponivel na pasta raiz do projeto, e execute-o para criação de dados básicos.
+7. Compile o projeto e execute a aplicação.
+8. Use o Swagger ou outra ferramenta similar para testar os endpoints da API.
