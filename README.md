@@ -119,3 +119,12 @@ Após isso você terá que repetir o passo de autorização, gerando um novo tok
 Após esse procedimento você terá acesso a todos os demais endpoints que irão te possibilitar a criação de novos produtos, categorias e tipos de operações, lembrando que o produto está diretamente ligado a categoria, portanto ao criar um novo produto deve se atentar ao código de categoria se o que de fato deseja e exista na tabela de categorias.
 
 Por fim caso queira voltar para Customer, para utilizar novamente as outras funcionalidade basta repetir o processo de atualização de usuario, porém passando o valor **"2"** em Role.
+
+
+## Próximos passos - To Do's
+
+- Elaboração de testes unitários;
+- Implementação de validação de dados de entradas para os demais endpoints alem do Create User;
+- Tratamento de exceções e criação de exceções personalizadas;
+- Implementação de Paginação para consultas com resultados maiores;
+- Ajuste de parametros de serviço de e-mail e job de verificação para o AppSettings.
