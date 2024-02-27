@@ -42,3 +42,10 @@ Para executar o projeto, siga as seguintes etapas:
 6. Abra o script de nome "Script Inicial Banco de dados" disponivel na pasta raiz do projeto, e execute-o para criação de dados básicos.
 7. Compile o projeto e execute a aplicação.
 8. Use o Swagger ou outra ferramenta similar para testar os endpoints da API.
+
+## Como utilizar a aplicação
+Para executar o projeto, siga as seguintes etapas:
+
+**Criando um usuário**
+
+O primeiro passo da aplicação é realizar a criação do usuário você deve usar o endpoint abaixo com as seguintes informações
