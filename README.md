@@ -4,18 +4,21 @@
 
 Este é um projeto em C#, consiste em uma API de Compra, venda e gerenciamento de produtos de investimentos. A API utiliza o framework ASP.NET Core e o banco de dados Microsoft SQL Server, utilizando Entity Framework como ORM.
 
-A API conta com as seguintes funcionalidades:
+A API conta com as seguintes **funcionalidades**:
 
-Gestão dos produtos
+**Gestão dos produtos**
+  
   Realizado a criação de endpoints de maneira a qual o Backoffice possa criar, editar, consultar e deletar produtos.
   
-Disparo de e-mail diário para notificar os administradores a respeito dos produtos com vencimento próximo.
+**Disparo de e-mail diário para notificar os administradores a respeito dos produtos com vencimento próximo.**
+  
   Criado utilizando a biblioteca Quartz, roda um job em background todo dia as 08:00, onde é feita uma consulta e retornado todos produtos que estejam a menos de 03 meses dos vencimento e são encaminhados para os e-mails configurados, para notificação e atualização dos produtos. 
   
-Criar um serviço que permita o cliente comprar, vender e consultar seus investimentos.
+**Criar um serviço que permita o cliente comprar, vender e consultar seus investimentos.**
+
   Realizado a criação de endpoints de maneira a qual o cliente possa realizar a compra e venda, além de consultar o saldo dos produtos comprados e saldo em conta, além de consulta do historico de transações.
 
-Endpoints
+# Endpoints
 
 ![Endpoints1](https://live.staticflickr.com/65535/53555781990_e2986c24f2_k.jpg)
 ![Endpoints2](https://live.staticflickr.com/65535/53555672314_5a6525da15_k.jpg)
