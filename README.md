@@ -1,6 +1,6 @@
 # API de Compra, venda e gerenciamento de produtos de investimentos;
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/ezequiel-lima/gestao-de-cursos/blob/master/LICENSE.txt)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/CaioTito/InvestmentManager/blob/master/LICENSE.txt)
 
 Este é um projeto em C#, consiste em uma API de Compra, venda e gerenciamento de produtos de investimentos. A API utiliza o framework ASP.NET Core e o banco de dados Microsoft SQL Server, utilizando Entity Framework como ORM.
 
