@@ -1,7 +1,6 @@
 ﻿using InvestmentManager.Application.Commands;
 using InvestmentManager.Application.Queries;
 using InvestmentManager.Application.Queries.Transaction.GetTransactionById;
-using InvestmentManager.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -79,7 +78,7 @@ namespace InvestmentManager.API.Controllers
 
                 return Ok(investment);
             }
-            return BadRequest("User ID não identificado"); 
+            return BadRequest("Error in UserId identification");
         }
 
         [HttpGet("checkBalance")]
@@ -99,7 +98,7 @@ namespace InvestmentManager.API.Controllers
 
                 return Ok(investment);
             }
-            return BadRequest("User ID não identificado");
+            return BadRequest("Error in UserId identification");
         }
 
         [HttpPost("buy")]
