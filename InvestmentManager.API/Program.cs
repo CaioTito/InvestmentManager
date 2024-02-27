@@ -1,5 +1,5 @@
-using FluentValidation.AspNetCore;
 using FluentValidation;
+using FluentValidation.AspNetCore;
 using InvestmentManager.API.Extensions;
 using InvestmentManager.API.Filters;
 using InvestmentManager.Application.Commands;
@@ -7,6 +7,7 @@ using InvestmentManager.Application.Validators;
 using InvestmentManager.Infra.Context;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -57,7 +58,18 @@ void ConfigureSwagger(WebApplicationBuilder builder)
 {
     builder.Services.AddSwaggerGen(c =>
     {
-        c.SwaggerDoc("v1", new OpenApiInfo { Title = "InvestmentManager.API", Version = "v1" });
+        c.SwaggerDoc("v1", new OpenApiInfo
+        {
+            Title = "InvestmentManager.API",
+            Version = "v1",
+            Description = "API for buying, selling and managing investment products. Developed using the ASP.NET Core 8 framework and the Microsoft SQL Server database, using Entity Framework as ORM.",
+            Contact = new OpenApiContact
+            {
+                Name = "Caio Silva",
+                Email = "caio_tito@hotmail.com",
+                Url = new Uri("https://github.com/CaioTito")
+            }
+        });
 
         c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
         {
@@ -68,6 +80,8 @@ void ConfigureSwagger(WebApplicationBuilder builder)
             In = ParameterLocation.Header,
             Description = "JWT Authorization header usando o esquema Bearer."
         });
+
+        c.CustomSchemaIds(x => x.FullName);
 
         c.AddSecurityRequirement(new OpenApiSecurityRequirement
                      {
@@ -83,6 +97,15 @@ void ConfigureSwagger(WebApplicationBuilder builder)
                                  new string[] {}
                          }
                      });
+
+        var applicationBasePath = PlatformServices.Default.Application.ApplicationBasePath;
+        var applicationName = PlatformServices.Default.Application.ApplicationName;
+        var xmlDocumentPath = Path.Combine(applicationBasePath, $"{applicationName}.xml");
+
+        if (File.Exists(xmlDocumentPath))
+        {
+            c.IncludeXmlComments(xmlDocumentPath);
+        }
     });
 }
 #endregion

@@ -18,6 +18,11 @@ namespace InvestmentManager.API.Controllers
             _mediator = mediator;
         }
 
+        /// <summary>
+        /// Retorna todas as categorias de acordo com o digitado na query
+        /// </summary>
+        /// <param name="getAllCategoriesQuery">Texto a ser procurado, pelo nome</param>
+        /// <returns>Retorna uma lista de categorias</returns> 
         [HttpGet]
         [Authorize(Roles = "Administrator, Customer")]
         public async Task<ActionResult> GetAll([FromQuery]GetAllCategoriesQuery getAllCategoriesQuery)
