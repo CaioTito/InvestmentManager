@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/CaioTito/InvestmentManager/blob/master/LICENSE.txt)
 
-Este é um projeto em C#, consiste em uma API de Compra, venda e gerenciamento de produtos de investimentos. A API utiliza o framework ASP.NET Core e o banco de dados Microsoft SQL Server, utilizando Entity Framework como ORM.
+Este é um projeto em C#, consiste em uma API de Compra, venda e gerenciamento de produtos de investimentos. A API utiliza o framework ASP.NET Core 8 e o banco de dados Microsoft SQL Server, utilizando Entity Framework como ORM.
 
 A API conta com as seguintes **funcionalidades**:
 
@@ -12,7 +12,7 @@ A API conta com as seguintes **funcionalidades**:
   
 **Disparo de e-mail diário para notificar os administradores a respeito dos produtos com vencimento próximo.**
   
-  Criado utilizando a biblioteca Quartz, roda um job em background todo dia as 08:00, onde é feita uma consulta e retornado todos produtos que estejam a menos de 03 meses dos vencimento e são encaminhados para os e-mails configurados, para notificação e atualização dos produtos. 
+  Criado utilizando a biblioteca Quartz, roda um job em background todo dia as 08:00, onde é feita uma consulta e retornado todos produtos que estejam a menos de 03 meses do vencimento e são encaminhados para os e-mails configurados, para notificação e atualização dos produtos. 
   
 **Criar um serviço que permita o cliente comprar, vender e consultar seus investimentos.**
 
@@ -20,7 +20,7 @@ A API conta com as seguintes **funcionalidades**:
 
 **Autorização e autenticação**
 
-  Feito utilizando através de token JWT, existem duas roles a de Administrador e a de Cliente, contando com os endpoints de cadastro e login disponiveis, para possibilitar a criação do acesso.
+  Feito através de token JWT, existem duas roles a de Administrador e a de Cliente, contando com os endpoints de cadastro e login disponiveis, para possibilitar a criação do acesso.
 
 **Validação de dados**
 
@@ -48,4 +48,12 @@ Para executar o projeto, siga as seguintes etapas:
 
 **Criando um usuário**
 
-O primeiro passo da aplicação é realizar a criação do usuário você deve usar o endpoint abaixo com as seguintes informações
+O primeiro passo da aplicação é realizar a criação do usuário você deve usar o endpoint abaixo com as seguintes informações:
+
+![PostUser](https://github.com/CaioTito/InvestmentManager/assets/47333681/0a38c5e2-8451-47d5-858a-a1408bbee01c)
+
+Respeitando as seguintes validações:
+
+![Validacoes User](https://github.com/CaioTito/InvestmentManager/assets/47333681/4b4b21f2-0b11-41fd-9f0d-34c5e6a9bb23)
+
+
