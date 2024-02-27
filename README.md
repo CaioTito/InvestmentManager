@@ -127,4 +127,5 @@ Por fim caso queira voltar para Customer, para utilizar novamente as outras func
 - Implementação de validação de dados de entradas para os demais endpoints alem do Create User;
 - Tratamento de exceções e criação de exceções personalizadas;
 - Implementação de Paginação para consultas com resultados maiores;
-- Ajuste de parametros de serviço de e-mail e job de verificação para o AppSettings.
+- Ajuste de parametros de serviço de e-mail e job de verificação para o AppSettings;
+- Refatoração das handlers de compra e venda para reduzir complexidade.
