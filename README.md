@@ -18,8 +18,8 @@ Extrato do produto
 
 Endpoints
 
-[![Endpoints1](https://flic.kr/p/2pAxo8y)
-[![Endpoints2](https://flic.kr/p/2pAwPwA)
+![Endpoints1](https://live.staticflickr.com/65535/53555781990_e2986c24f2_k.jpg)
+![Endpoints2](https://live.staticflickr.com/65535/53555672314_5a6525da15_k.jpg)
 
 ## Como executar o projeto
 Para executar o projeto, siga as seguintes etapas:
