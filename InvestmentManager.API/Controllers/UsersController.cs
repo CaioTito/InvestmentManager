@@ -57,17 +57,9 @@ namespace InvestmentManager.API.Controllers
         {
             return Ok(new { token = await _mediator.Send(login) });
         }
-        [HttpPost("promote")]
-        [Authorize(Roles = "Administrator, Customer")]
-        public async Task<ActionResult> PromoteAdmin([FromBody] PromoteUserCommand command)
-        {
-            await _mediator.Send(command);
-
-            return NoContent();
-        }
 
         [HttpPut]
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator, Customer")]
         public async Task<ActionResult> UpdateUser([FromBody] UpdateUserCommand command)
         {
             await _mediator.Send(command);
