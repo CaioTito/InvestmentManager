@@ -6,15 +6,14 @@ Este é um projeto em C#, consiste em uma API de Compra, venda e gerenciamento d
 
 A API conta com as seguintes funcionalidades:
 
-Gestão dos produtos financeiros
-Disparo de e-mail diário para notificar os administradores a respeito dos produtos com vencimento próximo
+Gestão dos produtos
+  Realizado a criação de endpoints de maneira a qual o Backoffice possa criar, editar, consultar e deletar produtos.
+  
+Disparo de e-mail diário para notificar os administradores a respeito dos produtos com vencimento próximo.
+  Criado utilizando a biblioteca Quartz, roda um job em background todo dia as 08:00, onde é feita uma consulta e retornado todos produtos que estejam a menos de 03 meses dos vencimento e são encaminhados para os e-mails configurados, para notificação e atualização dos produtos. 
+  
 Criar um serviço que permita o cliente comprar, vender e consultar seus investimentos.
-Funcionalidades:
-
-Negociar produto financeiro (Compra e Venda)
-Extrato do produto
-
-## Demonstração 
+  Realizado a criação de endpoints de maneira a qual o cliente possa realizar a compra e venda, além de consultar o saldo dos produtos comprados e saldo em conta, além de consulta do historico de transações.
 
 Endpoints
 
