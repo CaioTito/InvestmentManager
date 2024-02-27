@@ -1,4 +1,4 @@
-# API de Compra, venda e gerenciamento de produtos de investimentos;
+# API de Compra, venda e gerenciamento de produtos de investimentos
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/CaioTito/InvestmentManager/blob/master/LICENSE.txt)
 
@@ -57,7 +57,7 @@ Respeitando as seguintes validações:
 
 ![ValidationUser](https://github.com/CaioTito/InvestmentManager/assets/47333681/85b8c277-087d-42ad-b3f1-b943dd0d98d5)
 
-Em seguida você deve realizar utilizar o seu email e senha para ser validado no Login:
+Em seguida você deve utilizar o seu email e senha para ser validado no Login:
 
 ![Login](https://github.com/CaioTito/InvestmentManager/assets/47333681/c9873188-f313-478e-af80-d50e57c8b3d2)
 
@@ -67,7 +67,7 @@ Por fim pegar o Token gerado na resposta e fazer a autorização no Swagger.
 ![AuthorizationSwagger](https://github.com/CaioTito/InvestmentManager/assets/47333681/a96ad9df-9cbe-4968-8e12-2193576bc163)
 ![Bearer](https://github.com/CaioTito/InvestmentManager/assets/47333681/241e9a16-e10e-4ff3-aea1-7c46ffe3d070)
 
-Nesse momento voce está validado como Customer e tem acesso aos seguintes endpoints:
+Nesse momento você está validado como Customer e tem acesso aos seguintes endpoints:
  - (GET) api/transactions/statement (Consulta de extrato)
  - (GET) api/transactions/checkBalance (Consulta de saldo de produtos e conta)
  - (POST) api/transactions/buy (Compra de produtos)
@@ -78,7 +78,7 @@ Nesse momento voce está validado como Customer e tem acesso aos seguintes endpo
 
 **Fazendo uma compra**
 
-Para fazer uma compra é necessário passar o ProductId e do OperationTypeId, para consultar voce pode usar os endpoints de consulta de cada um deles (GET) api/products e (GET) api/operationTypes
+Para fazer uma compra é necessário passar o ProductId e do OperationTypeId, para consultar você pode usar os endpoints de consulta de cada um deles (GET) api/products e (GET) api/operationTypes
 
 ![Product](https://github.com/CaioTito/InvestmentManager/assets/47333681/ea5095d1-5d5a-4492-bdae-d118cafa9cdb)
 ![OperationType](https://github.com/CaioTito/InvestmentManager/assets/47333681/6e23c7fd-a5bb-4c7e-837c-d3723837ec75)
@@ -91,7 +91,7 @@ Por fim basta seguir ao endpoint de compra e preencher com o valor e ids que aca
 
 **Fazendo uma Venda**
 
-Para fazer uma venda também é necessário passar o ProductId e do OperationTypeId, para consultar voce deve seguir os mesmos passos da compra
+Para fazer uma venda também é necessário passar o ProductId e do OperationTypeId, para consultar você deve seguir os mesmos passos da compra
 
 ![Product](https://github.com/CaioTito/InvestmentManager/assets/47333681/ea5095d1-5d5a-4492-bdae-d118cafa9cdb)
 ![image](https://github.com/CaioTito/InvestmentManager/assets/47333681/ce7b8033-df92-4a81-b7ba-527b90707065)
@@ -104,7 +104,7 @@ Por fim basta seguir ao endpoint de venda e preencher com o valor e ids que acab
 
 **Fazendo as consultas**
 
-As Consultas são bem simples sendo os endpoints de (GET) api/transactions/statement, que traz um retorno com todas as vendas e compras que fez de cada produto e (GET) api/transactions/checkBalance, que traz um consolidado de saldo que voce tem de cada produto e do seu saldo disponivel para comprar mais produtos, não é necessário a passagem de nenhum parametro pois o Id do usuario é recuperado através do token.
+As Consultas são bem simples sendo os endpoints de (GET) api/transactions/statement, que traz um retorno com todas as vendas e compras que fez de cada produto e (GET) api/transactions/checkBalance, que traz um consolidado de saldo que você tem de cada produto e do seu saldo disponivel para comprar mais produtos, não é necessário a passagem de nenhum parametro pois o Id do usuario é recuperado através do token.
 
 ## Como utilizar a aplicação - Administrator
 
@@ -116,7 +116,7 @@ A primeira coisa que deve fazer é utilizar o endpoint de atualização de usuar
 
 Após isso você terá que repetir o passo de autorização, gerando um novo token no endpoint de login e atualizando na autenticação do Swagger
 
-Após esse procedimento você terá acesso a todos os demais endpoints que irão te possibilitar a criação de novos produtos, categorias e tipos de operações, lembrando que o produto está diretamente ligado a categoria, portanto ao criar um novo produto deve se atentar ao código de categoria se o que de fato deseja e exista na tabela de categorias.
+Após esse procedimento você terá acesso a todos os demais endpoints que irão te possibilitar a criação de novos produtos, categorias e tipos de operações, lembrando que o produto está diretamente ligado a categoria, portanto ao criar um novo produto deve se atentar ao código de categoria, se existe na tabela de categorias.
 
 Por fim caso queira voltar para Customer, para utilizar novamente as outras funcionalidade basta repetir o processo de atualização de usuario, porém passando o valor **"2"** em Role.
 
