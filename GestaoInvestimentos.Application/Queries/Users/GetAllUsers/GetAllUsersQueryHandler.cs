@@ -1,9 +1,9 @@
-﻿using GestaoInvestimentos.Application.ViewModels;
-using GestaoInvestimentos.Domain.Enums;
-using GestaoInvestimentos.Domain.Interfaces.Repositories;
+﻿using InvestmentManager.Application.ViewModels;
+using InvestmentManager.Domain.Enums;
+using InvestmentManager.Domain.Interfaces.Repositories;
 using MediatR;
 
-namespace GestaoInvestimentos.Application.Queries.Users.GetAllUsers
+namespace InvestmentManager.Application.Queries.Users.GetAllUsers
 {
     public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, List<UserViewModel>>
     {

@@ -1,10 +1,10 @@
-﻿using GestaoInvestimentos.Application.Commands;
-using GestaoInvestimentos.Application.Queries;
+﻿using InvestmentManager.Application.Commands;
+using InvestmentManager.Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GestaoInvestimentos.API.Controllers
+namespace InvestmentManager.API.Controllers
 {
     [ApiController]
     [Route("api/products")]

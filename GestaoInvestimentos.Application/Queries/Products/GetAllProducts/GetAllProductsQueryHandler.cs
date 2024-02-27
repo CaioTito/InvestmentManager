@@ -1,8 +1,8 @@
-﻿using GestaoInvestimentos.Application.ViewModels;
-using GestaoInvestimentos.Domain.Interfaces.Repositories;
+﻿using InvestmentManager.Application.ViewModels;
+using InvestmentManager.Domain.Interfaces.Repositories;
 using MediatR;
 
-namespace GestaoInvestimentos.Application.Queries.Products.GetAllProducts
+namespace InvestmentManager.Application.Queries.Products.GetAllProducts
 {
     public class GetAllProductsQueryHandler : IRequestHandler<GetAllProductsQuery, List<ProductViewModel>>
     {

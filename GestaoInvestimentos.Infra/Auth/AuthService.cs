@@ -1,6 +1,6 @@
-﻿using GestaoInvestimentos.Domain.Entities;
-using GestaoInvestimentos.Domain.Enums;
-using GestaoInvestimentos.Domain.Interfaces.Services;
+﻿using InvestmentManager.Domain.Entities;
+using InvestmentManager.Domain.Enums;
+using InvestmentManager.Domain.Interfaces.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.Data;
@@ -10,7 +10,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace GestaoInvestimentos.Infra.Auth
+namespace InvestmentManager.Infra.Auth
 {
     public class AuthService : IAuthService
     {

@@ -1,7 +1,7 @@
-﻿using GestaoInvestimentos.Application.ViewModels;
+﻿using InvestmentManager.Application.ViewModels;
 using MediatR;
 
-namespace GestaoInvestimentos.Application.Queries.Category.GetAllCategories
+namespace InvestmentManager.Application.Queries.Category.GetAllCategories
 {
     public class GetAllCategoriesQuery : IRequest<List<CategoryViewModel>>
     {

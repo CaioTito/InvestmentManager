@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace GestaoInvestimentos.Application.Commands
+namespace InvestmentManager.Application.Commands
 {
     public class RemoveCategoryCommand : IRequest<Unit>
     {

@@ -1,4 +1,4 @@
-﻿namespace GestaoInvestimentos.Application.ViewModels
+﻿namespace InvestmentManager.Application.ViewModels
 {
     public class CheckBalanceViewModel
     {

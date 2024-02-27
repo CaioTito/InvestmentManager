@@ -1,6 +1,6 @@
 ﻿using System.Data;
 
-namespace GestaoInvestimentos.Domain.Entities
+namespace InvestmentManager.Domain.Entities
 {
     public class Products : BaseEntity
     {

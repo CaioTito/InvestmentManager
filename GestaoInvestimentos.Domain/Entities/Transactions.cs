@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace GestaoInvestimentos.Domain.Entities
+namespace InvestmentManager.Domain.Entities
 {
     public class Transactions : BaseEntity
     {

@@ -1,7 +1,8 @@
-﻿using GestaoInvestimentos.Domain.Interfaces.Repositories;
+﻿using InvestmentManager.Domain.Enums;
+using InvestmentManager.Domain.Interfaces.Repositories;
 using MediatR;
 
-namespace GestaoInvestimentos.Application.Commands
+namespace InvestmentManager.Application.Commands
 {
     public class PromoteUserCommandHandler : IRequestHandler<PromoteUserCommand, Unit>
     {
@@ -16,7 +17,7 @@ namespace GestaoInvestimentos.Application.Commands
         {
             var user = await _usersRepository.GetUserByIdAsync(request.Id);
 
-            user.Update(user.Email, 1);
+            user.Update(user.Email, (int)ERole.Administrator);
             _usersRepository.Update(user);
 
             return Unit.Value;

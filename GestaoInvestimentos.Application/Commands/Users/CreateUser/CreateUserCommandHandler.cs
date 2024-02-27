@@ -1,9 +1,10 @@
-﻿using GestaoInvestimentos.Domain.Entities;
-using GestaoInvestimentos.Domain.Interfaces.Repositories;
-using GestaoInvestimentos.Domain.Interfaces.Services;
+﻿using InvestmentManager.Domain.Entities;
+using InvestmentManager.Domain.Enums;
+using InvestmentManager.Domain.Interfaces.Repositories;
+using InvestmentManager.Domain.Interfaces.Services;
 using MediatR;
 
-namespace GestaoInvestimentos.Application.Commands
+namespace InvestmentManager.Application.Commands
 {
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Guid>
     {
@@ -20,7 +21,7 @@ namespace GestaoInvestimentos.Application.Commands
         {
             var passwordHash = _authService.GeneratePasswordHash(request.Password);
 
-            var user = new Users(request.Name, request.Email, request.Role, request.Balance, request.Cpf, passwordHash);
+            var user = new Users(request.Name, request.Email, (int)ERole.Customer, request.Balance, request.Cpf, passwordHash);
 
             await _usersRepository.AddAsync(user);
 

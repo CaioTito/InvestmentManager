@@ -1,11 +1,11 @@
-﻿using GestaoInvestimentos.Domain.Interfaces.Repositories;
-using GestaoInvestimentos.Domain.Interfaces.Services;
-using GestaoInvestimentos.Infra.Auth;
-using GestaoInvestimentos.Infra.Email;
-using GestaoInvestimentos.Infra.Repositories;
+﻿using InvestmentManager.Domain.Interfaces.Repositories;
+using InvestmentManager.Domain.Interfaces.Services;
+using InvestmentManager.Infra.Auth;
+using InvestmentManager.Infra.Email;
+using InvestmentManager.Infra.Repositories;
 using Quartz;
 
-namespace GestaoInvestimentos.API.Extensions
+namespace InvestmentManager.API.Extensions
 {
     public static class ServiceCollectionExtensions
     {

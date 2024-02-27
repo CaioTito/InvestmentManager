@@ -1,8 +1,8 @@
-﻿using GestaoInvestimentos.Domain.Entities;
-using GestaoInvestimentos.Domain.Interfaces.Repositories;
+﻿using InvestmentManager.Domain.Entities;
+using InvestmentManager.Domain.Interfaces.Repositories;
 using MediatR;
 
-namespace GestaoInvestimentos.Application.Commands
+namespace InvestmentManager.Application.Commands
 {
     public class CreateTransactionCommandHandler : IRequestHandler<CreateTransactionCommand, Guid>
     {
@@ -31,7 +31,7 @@ namespace GestaoInvestimentos.Application.Commands
                 var quantity = (request.Value / product.MinimumInvestment);
 
                 if (user.Balance < request.Value)
-                    throw new Exception("O seu saldo é insuficiente para essa quantidade");
+                    throw new Exception("Your balance is insufficient for this quantity");
                 user.UpdateBalanceBuy(request.Value);
 
                 var transaction = new Transactions(quantity, request.Value, operationType, product, user);

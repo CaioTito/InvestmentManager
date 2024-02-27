@@ -1,12 +1,12 @@
-﻿using GestaoInvestimentos.Application.Commands;
-using GestaoInvestimentos.Application.Queries;
-using GestaoInvestimentos.Application.Queries.Transaction.GetTransactionById;
-using GestaoInvestimentos.Domain.Entities;
+﻿using InvestmentManager.Application.Commands;
+using InvestmentManager.Application.Queries;
+using InvestmentManager.Application.Queries.Transaction.GetTransactionById;
+using InvestmentManager.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GestaoInvestimentos.API.Controllers
+namespace InvestmentManager.API.Controllers
 {
     [ApiController]
     [Route("api/transactions")]

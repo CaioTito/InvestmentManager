@@ -1,10 +1,10 @@
-﻿using GestaoInvestimentos.Domain.Interfaces.Repositories;
-using GestaoInvestimentos.Domain.Interfaces.Services;
+﻿using InvestmentManager.Domain.Interfaces.Repositories;
+using InvestmentManager.Domain.Interfaces.Services;
 using Microsoft.Extensions.Logging;
 using Quartz;
 using System.Text.Json;
 
-namespace GestaoInvestimentos.Infra.Email
+namespace InvestmentManager.Infra.Email
 {
     [DisallowConcurrentExecution]
     public class EmailBackgoundJob : IJob

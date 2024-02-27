@@ -1,7 +1,7 @@
-﻿using GestaoInvestimentos.Application.ViewModels;
+﻿using InvestmentManager.Application.ViewModels;
 using MediatR;
 
-namespace GestaoInvestimentos.Application.Queries
+namespace InvestmentManager.Application.Queries
 {
     public class GetAllProductsQuery : IRequest<List<ProductViewModel>>
     {

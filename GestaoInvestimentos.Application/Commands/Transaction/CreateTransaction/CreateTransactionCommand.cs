@@ -1,7 +1,7 @@
-﻿using GestaoInvestimentos.Domain.Entities;
+﻿using InvestmentManager.Domain.Entities;
 using MediatR;
 
-namespace GestaoInvestimentos.Application.Commands
+namespace InvestmentManager.Application.Commands
 {
     public class CreateTransactionCommand : IRequest<Guid>
     {

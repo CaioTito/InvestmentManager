@@ -1,7 +1,7 @@
-﻿using GestaoInvestimentos.Domain.Interfaces.Repositories;
+﻿using InvestmentManager.Domain.Interfaces.Repositories;
 using MediatR;
 
-namespace GestaoInvestimentos.Application.Commands
+namespace InvestmentManager.Application.Commands
 {
     public class RemoveOperationTypeCommandHandler : IRequestHandler<RemoveOperationTypeCommand, Unit>
     {

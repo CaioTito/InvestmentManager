@@ -1,8 +1,8 @@
-﻿using GestaoInvestimentos.Application.ViewModels;
-using GestaoInvestimentos.Domain.Interfaces.Repositories;
+﻿using InvestmentManager.Application.ViewModels;
+using InvestmentManager.Domain.Interfaces.Repositories;
 using MediatR;
 
-namespace GestaoInvestimentos.Application.Queries
+namespace InvestmentManager.Application.Queries
 {
     public class GetTransactionByProductIdQueryHandler : IRequestHandler<GetTransactionByProductIdQuery, List<TransactionViewModel>>
     {

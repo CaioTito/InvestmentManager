@@ -1,6 +1,6 @@
-﻿using GestaoInvestimentos.Domain.Entities;
+﻿using InvestmentManager.Domain.Entities;
 
-namespace GestaoInvestimentos.Domain.Interfaces.Services
+namespace InvestmentManager.Domain.Interfaces.Services
 {
     public interface IAuthService
     {

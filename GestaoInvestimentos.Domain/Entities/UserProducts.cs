@@ -1,4 +1,4 @@
-﻿namespace GestaoInvestimentos.Domain.Entities
+﻿namespace InvestmentManager.Domain.Entities
 {
     public class UserProducts : BaseEntity
     {

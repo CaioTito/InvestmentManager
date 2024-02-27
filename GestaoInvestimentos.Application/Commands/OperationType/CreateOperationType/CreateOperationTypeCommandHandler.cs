@@ -1,8 +1,8 @@
-﻿using GestaoInvestimentos.Domain.Entities;
-using GestaoInvestimentos.Domain.Interfaces.Repositories;
+﻿using InvestmentManager.Domain.Entities;
+using InvestmentManager.Domain.Interfaces.Repositories;
 using MediatR;
 
-namespace GestaoInvestimentos.Application.Commands
+namespace InvestmentManager.Application.Commands
 {
     public class CreateOperationTypeCommandHandler : IRequestHandler<CreateOperationTypeCommand, Guid>
     {

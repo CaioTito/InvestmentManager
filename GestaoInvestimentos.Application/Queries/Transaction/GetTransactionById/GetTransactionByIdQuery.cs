@@ -1,7 +1,7 @@
-﻿using GestaoInvestimentos.Application.ViewModels;
+﻿using InvestmentManager.Application.ViewModels;
 using MediatR;
 
-namespace GestaoInvestimentos.Application.Queries.Transaction.GetTransactionById
+namespace InvestmentManager.Application.Queries.Transaction.GetTransactionById
 {
     public class GetTransactionByIdQuery : IRequest<TransactionViewModel>
     {

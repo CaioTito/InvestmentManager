@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using Quartz;
 
-namespace GestaoInvestimentos.Infra.Email
+namespace InvestmentManager.Infra.Email
 {
     public class EmailBackgroundJobSetup : IConfigureOptions<QuartzOptions>
     {

@@ -1,6 +1,6 @@
-﻿using GestaoInvestimentos.Domain.Entities;
+﻿using InvestmentManager.Domain.Entities;
 
-namespace GestaoInvestimentos.Domain.Interfaces.Repositories
+namespace InvestmentManager.Domain.Interfaces.Repositories
 {
     public interface IProductsRepository
     {

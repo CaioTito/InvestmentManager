@@ -1,8 +1,8 @@
-﻿using GestaoInvestimentos.Domain.Entities;
-using GestaoInvestimentos.Domain.Interfaces.Repositories;
+﻿using InvestmentManager.Domain.Entities;
+using InvestmentManager.Domain.Interfaces.Repositories;
 using MediatR;
 
-namespace GestaoInvestimentos.Application.Commands
+namespace InvestmentManager.Application.Commands
 {
     public class RemoveTransactionCommandHandler : IRequestHandler<RemoveTransactionCommand, Guid>
     {
@@ -39,7 +39,7 @@ namespace GestaoInvestimentos.Application.Commands
                 if (userProductRelation != null)
                 {
                     if (userProductRelation.Quantity < 0 || userProductRelation.Quantity < quantity)
-                        throw new Exception("Você está tentando vender uma quantidade maior do que você tem.");
+                        throw new Exception("You do not have this quantity of this product");
 
                     user.UpdateBalanceSell(request.Value);
 
@@ -54,7 +54,7 @@ namespace GestaoInvestimentos.Application.Commands
                     if (transactionRelation != null)
                     {
                         if (transactionRelation.Quantity < 0 || transactionRelation.Quantity < quantity)
-                            throw new Exception("Você está tentando vender uma quantidade maior do que você tem.");
+                            throw new Exception("You do not have this quantity of this product");
 
                         transactionRelation.UpdateQuantitySell(quantity, request.Value);
                         if (transactionRelation.Quantity == 0)
@@ -69,7 +69,7 @@ namespace GestaoInvestimentos.Application.Commands
                     return transaction.Id;
                 }
                 else
-                    throw new Exception("Você está tentando vender um produto que não possui.");                
+                    throw new Exception("You do not have this product");                
             }
             catch (Exception)
             {

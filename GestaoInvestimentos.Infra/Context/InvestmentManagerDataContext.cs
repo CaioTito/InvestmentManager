@@ -1,8 +1,8 @@
-﻿using GestaoInvestimentos.Domain.Entities;
+﻿using InvestmentManager.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
-namespace GestaoInvestimentos.Infra.Context
+namespace InvestmentManager.Infra.Context
 {
     public class InvestmentManagerDataContext : DbContext
     {

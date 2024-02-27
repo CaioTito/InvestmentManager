@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
-using GestaoInvestimentos.Application.Commands;
+using InvestmentManager.Application.Commands;
 using System.Text.RegularExpressions;
 
-namespace GestaoInvestimentos.Application.Validators
+namespace InvestmentManager.Application.Validators
 {
     public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
     {
@@ -10,22 +10,16 @@ namespace GestaoInvestimentos.Application.Validators
         {
             RuleFor(p => p.Email)
                 .EmailAddress()
-                .WithMessage("E-mail não válido");
+                .WithMessage("E-mail is not valid");
 
             RuleFor(p => p.Password)
                 .Must(ValidPassword)
-                .WithMessage("Senha deve conter pelo menos 8 caracteres, um número, uma letra maiúscula, uma letra minpuscula e um caractere especial");
+                .WithMessage("Password needs to contain 8 charaters, 1 number, 1 capital letter, 1 lowercase letter e 1 special character");
 
             RuleFor(p => p.Name)
                 .NotEmpty()
                 .NotNull()
-                .WithMessage("Nome é obrigatório!");
-
-            RuleFor(p => p.Role)
-                .NotEmpty()
-                .NotNull()
-                .Must(ValidRole)
-                .WithMessage(@"Role é obrigatória. Utilize 1 para ""Administrador"" e 2 para ""Cliente""");
+                .WithMessage("Name is required!");
         }
 
         public bool ValidPassword(string password)

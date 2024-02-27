@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace GestaoInvestimentos.Domain.Enums
+namespace InvestmentManager.Domain.Enums
 {
     public enum ERole
     {

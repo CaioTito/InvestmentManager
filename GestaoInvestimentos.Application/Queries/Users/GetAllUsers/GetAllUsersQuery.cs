@@ -1,7 +1,7 @@
-﻿using GestaoInvestimentos.Application.ViewModels;
+﻿using InvestmentManager.Application.ViewModels;
 using MediatR;
 
-namespace GestaoInvestimentos.Application.Queries.Users.GetAllUsers
+namespace InvestmentManager.Application.Queries.Users.GetAllUsers
 {
     public class GetAllUsersQuery : IRequest<List<UserViewModel>>
     {

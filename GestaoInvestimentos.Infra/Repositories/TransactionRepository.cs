@@ -1,9 +1,9 @@
-﻿using GestaoInvestimentos.Domain.Entities;
-using GestaoInvestimentos.Domain.Interfaces.Repositories;
-using GestaoInvestimentos.Infra.Context;
+﻿using InvestmentManager.Domain.Entities;
+using InvestmentManager.Domain.Interfaces.Repositories;
+using InvestmentManager.Infra.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace GestaoInvestimentos.Infra.Repositories
+namespace InvestmentManager.Infra.Repositories
 {
     public class TransactionRepository : ITransactionRepository
     {

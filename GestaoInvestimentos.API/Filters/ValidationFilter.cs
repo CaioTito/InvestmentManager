@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace GestaoInvestimentos.API.Filters
+namespace InvestmentManager.API.Filters
 {
     public class ValidationFilter : IActionFilter
     {

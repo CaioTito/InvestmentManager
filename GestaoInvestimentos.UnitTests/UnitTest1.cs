@@ -1,4 +1,4 @@
-namespace GestaoInvestimentos.UnitTests
+namespace InvestmentManager.UnitTests
 {
     public class UnitTest1
     {

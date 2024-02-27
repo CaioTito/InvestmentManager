@@ -1,8 +1,8 @@
-﻿using GestaoInvestimentos.Domain.Interfaces.Services;
+﻿using InvestmentManager.Domain.Interfaces.Services;
 using System.Net.Mail;
 using System.Net;
 
-namespace GestaoInvestimentos.Infra.Email
+namespace InvestmentManager.Infra.Email
 {
     public class EmailService : IEmailService
     {

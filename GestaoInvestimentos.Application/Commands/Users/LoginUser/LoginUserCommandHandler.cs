@@ -1,9 +1,9 @@
-﻿using GestaoInvestimentos.Domain.Interfaces.Repositories;
-using GestaoInvestimentos.Domain.Interfaces.Services;
+﻿using InvestmentManager.Domain.Interfaces.Repositories;
+using InvestmentManager.Domain.Interfaces.Services;
 using MediatR;
 using System.Net;
 
-namespace GestaoInvestimentos.Application.Commands
+namespace InvestmentManager.Application.Commands
 {
     public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, string>
     {

@@ -1,6 +1,6 @@
-﻿using GestaoInvestimentos.Domain.Entities;
+﻿using InvestmentManager.Domain.Entities;
 
-namespace GestaoInvestimentos.Application.ViewModels
+namespace InvestmentManager.Application.ViewModels
 {
     public class ProductViewModel
     {

@@ -1,10 +1,10 @@
 using FluentValidation.AspNetCore;
 using FluentValidation;
-using GestaoInvestimentos.API.Extensions;
-using GestaoInvestimentos.API.Filters;
-using GestaoInvestimentos.Application.Commands;
-using GestaoInvestimentos.Application.Validators;
-using GestaoInvestimentos.Infra.Context;
+using InvestmentManager.API.Extensions;
+using InvestmentManager.API.Filters;
+using InvestmentManager.Application.Commands;
+using InvestmentManager.Application.Validators;
+using InvestmentManager.Infra.Context;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;

@@ -1,8 +1,8 @@
-﻿using GestaoInvestimentos.Domain.Entities;
+﻿using InvestmentManager.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace GestaoInvestimentos.Infra.Context.Configurations
+namespace InvestmentManager.Infra.Context.Configurations
 {
     public class TransactionConfiguration : IEntityTypeConfiguration<Transactions>
     {
