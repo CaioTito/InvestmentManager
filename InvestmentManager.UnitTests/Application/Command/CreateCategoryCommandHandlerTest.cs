@@ -19,7 +19,7 @@ namespace InvestmentManager.UnitTests.Application.Command
         }
 
         [Fact]
-        public async Task InputDataIsOK_Executed_ReturnProjectId()
+        public async Task InputDataIsOK_Executed_ReturnCategoryId()
         {
             //Arrange
             var createCategoryCommand = CategoryMock.CreateProjectCommandFaker.Generate();

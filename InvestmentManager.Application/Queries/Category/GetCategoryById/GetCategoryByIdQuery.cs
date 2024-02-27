@@ -5,6 +5,10 @@ namespace InvestmentManager.Application.Queries
 {
     public class GetCategoryByIdQuery : IRequest<CategoryViewModel>
     {
+        public GetCategoryByIdQuery()
+        {
+            
+        }
         public GetCategoryByIdQuery(Guid id)
         {
             Id = id;
